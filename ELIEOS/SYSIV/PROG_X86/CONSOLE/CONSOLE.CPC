@@ -1,0 +1,65 @@
+
+
+window/ new_cpc_console
+        .title          = "Elie CpcdosC+ Console"
+        .parameters     = "TYPE:0 ALPHAMODE:0 BLURRY:6 CTX:2"
+        .BackColor      = "%ELIE.WINDOW.COLOR%"
+        .WindowColor 	= "051,051,051"
+        .Sx = "600"
+        .Sy = "400"
+        .px = "200"
+        .py = "200"
+        .events         = "%_EXE_PATH_%"
+        .icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/cmd.png"
+        @#new_console creer/
+end/ window
+
+
+ccp/ /set.level = 3
+
+set/ new_cpc_console.ctx_text(0) = About Console
+set/ new_cpc_console.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/console/about.CPC
+
+set/ new_cpc_console.ctx_text(1) = Exit
+set/ new_cpc_console.ctx_action(1) = close/ new_cpc_console
+
+set/ new_cpc_console.ctx_number = 2
+
+ccp/ /set.level = 2
+
+
+Textbox/ We_are_CMD
+	.handle			= "%new_console%"
+	.parameters 	= "EDIT:1 COL:1 MULTILIGNE:1 CONSOLE:1"
+	.PX				= "0"
+	.PY				= "0"
+	.SX				= "600"
+	.SY				= "400"
+	.BackColor   	= "000,000,000"
+	.TextColor   	= "255,029,000"
+	.text			= ""
+	Creer/
+end/ Textbox
+
+
+Function/ new_cpc_console.Resize(up)
+        CCP/ /SET.LEVEL = 2
+        // [FR] Recuperer la taile X et Y de la fenetre
+        // [EN] Getting X, Y window size
+        window/ /modif:new_cpc_console
+                @#Size_X .sx
+                @#Size_Y .sy
+        end/ window
+
+
+        // [FR] Et y modifier dans le textbox
+        // [EN] And modify on textbox
+        textbox/ /modif:We_are_CMD
+                .sx         = "%Size_X%"
+                .sy         = "%Size_Y%"
+	            .TextColor	= "255,029,000"
+                create/
+        end/ textbox
+        
+
+End/ function

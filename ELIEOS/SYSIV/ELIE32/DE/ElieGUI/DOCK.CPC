@@ -1,0 +1,297 @@
+
+ 
+// sys/ /debug = 2
+
+SET/ POSY = /C(%CPC.SCR.Y% - 68)
+SET/ Dock_POSX = /C((%CPC.SCR.X% / 2) - (360 / 2))
+
+window/ dock_elie
+	.title 			        = "Dock Elie OS"
+	.px				        = "%Dock_POSX%"
+	.py				        = "%POSY%"
+	.sx			        	= "360"
+	.sy			        	= "68"
+	.Opacity 	        	= "0"
+	.Parameters	        	= "TYPE:4 CTN:1 SHADOW:0 TASKBARHIDE:1 REDUCT:0 SIZ:0 CLOSE:0 BLURRY:6"
+	.WindowColor	        = "051,051,051"
+	.BackColor	        = "%ELIE.WINDOW.COLOR%"
+	@#DOCK_OS create/
+end/ window
+
+
+picturebox/ dock_font
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:1 COL:0"
+	.PX			= "0"
+	.PY			= "0"
+	.sx			= "360"
+	.sy		        = "68"
+	.Opacity 	        	= "255"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/dock.png"
+	create/
+end/ picturebox
+
+
+
+picturebox/ menu_btn
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "15"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/menu.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+FUNCTION/ menu_btn.Click()
+	EXE/ & %HOST_OS%/SYSIV/ELIE32/DESKTOP/ELIEGUI/DIRXT.CPC
+END/ FUNCTION
+
+FUNCTION/ menu_btn.MouseEnter()
+	    picturebox/ /modif:menu_btn
+                  .px = "5"
+				  .py = "3"
+		          .sx = "62"
+				  .sy = "62"
+				  create/
+		end/ picturebox
+		refresh/ menu_btn
+		refresh/ dock_elie
+END/ FUNCTION
+
+FUNCTION/ menu_btn.MouseLeave()
+	    picturebox/ /modif:menu_btn
+                  .PX			= "15"
+	              .PY			= "13"
+		          .sx = "42"
+				  .sy = "42"
+				  create/
+		end/ picturebox
+		refresh/ menu_btn
+		refresh/ dock_elie
+END/ FUNCTION
+
+picturebox/ elie_texte
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "72"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/elienote.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+FUNCTION/ elie_texte.Click()
+	EXE/ & OS/ELIEOS/SYSIV/PROG_X86/WRITER/writer.cpc
+END/ FUNCTION
+
+FUNCTION/ elie_texte.MouseEnter()
+	    picturebox/ /modif:elie_texte
+                  .px = "62"
+				  .py = "3"
+		          .sx = "62"
+				  .sy = "62"
+				  create/
+		end/ picturebox
+		refresh/ elie_texte
+		refresh/ dock_elie
+END/ FUNCTION
+
+FUNCTION/ elie_texte.MouseLeave()
+	    picturebox/ /modif:elie_texte
+                  .PX			= "72"
+	              .PY			= "13"
+		          .sx = "42"
+				  .sy = "42"
+				  create/
+		end/ picturebox
+		refresh/ elie_texte
+		refresh/ dock_elie
+END/ FUNCTION
+
+
+picturebox/ dos_web
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "129"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/web.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ dos_web.Click()
+rem/gui/ /console
+	rem/dos/ OS/ELIEOS/SYSIV/PROG_X86/DILLODOS/DILLO.BAT
+	// /F:ELIE.MSGBOX(Error! Not avaible,ElieOS,4,0)
+	SYS/ /OS:ELIEOS
+
+     cmd/ /thread exe/ & %HOST_OS%/SYSIV/PROG_X86/emode/ElieMode.CPC
+
+end/ function
+
+FUNCTION/ dos_web.MouseEnter()
+	    picturebox/ /modif:dos_web
+                  .px = "119"
+				  .py = "3"
+		          .sx = "62"
+				  .sy = "62"
+				  create/
+		end/ picturebox
+		refresh/ dos_web
+		refresh/ dock_elie
+END/ FUNCTION
+
+FUNCTION/ dos_web.MouseLeave()
+	    picturebox/ /modif:dos_web
+                  .PX			= "129"
+	              .PY			= "13"
+		          .sx = "42"
+				  .sy = "42"
+				  create/
+		end/ picturebox
+		refresh/ dos_web
+		refresh/ dock_elie
+END/ FUNCTION
+
+
+
+picturebox/ calc
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "186"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/calc.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+function/ calc.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/ELIECALC/CALCU.CPC
+end/ function
+
+
+
+FUNCTION/ calc.MouseEnter()
+	    picturebox/ /modif:calc
+                  .px = "176"
+				  .py = "3"
+		          .sx = "62"
+				  .sy = "62"
+				  create/
+		end/ picturebox
+		refresh/ calc
+		refresh/ dock_elie
+END/ FUNCTION
+
+FUNCTION/ calc.MouseLeave()
+	    picturebox/ /modif:calc
+                  .PX			= "186"
+	              .PY			= "13"
+		          .sx = "42"
+				  .sy = "42"
+				  create/
+		end/ picturebox
+		refresh/ calc
+		refresh/ dock_elie
+END/ FUNCTION
+
+
+
+picturebox/ efu_apps
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "243"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/efu.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+function/ efu_apps.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/EFU/EFU.CPC
+end/ function
+
+
+FUNCTION/ efu_apps.MouseEnter()
+	    picturebox/ /modif:efu_apps
+                  .px = "233"
+				  .py = "3"
+		          .sx = "62"
+				  .sy = "62"
+				  create/
+		end/ picturebox
+		refresh/ efu_apps
+		refresh/ dock_elie
+END/ FUNCTION
+
+FUNCTION/ efu_apps.MouseLeave()
+	    picturebox/ /modif:efu_apps
+                  .PX			= "243"
+	              .PY			= "13"
+		          .sx = "42"
+				  .sy = "42"
+				  create/
+		end/ picturebox
+		refresh/ efu_apps
+		refresh/ dock_elie
+END/ FUNCTION
+
+
+picturebox/ setts
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "300"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/setting.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+FUNCTION/ setts.Click()
+	EXE/ & %HOST_OS%/SYSIV/ELIE32/DESKTOP/ELIEGUI/SETTS.CPC
+END/ FUNCTION
+
+
+
+FUNCTION/ setts.MouseEnter()
+	    picturebox/ /modif:setts
+                  .px = "290"
+				  .py = "3"
+		          .sx = "62"
+				  .sy = "62"
+				  create/
+		end/ picturebox
+		refresh/ setts
+		refresh/ dock_elie
+END/ FUNCTION
+
+FUNCTION/ setts.MouseLeave()
+	    picturebox/ /modif:setts
+                  .PX			= "300"
+	              .PY			= "13"
+		          .sx = "42"
+				  .sy = "42"
+				  create/
+		end/ picturebox
+		refresh/ setts
+		refresh/ dock_elie
+END/ FUNCTION
+
+
+
+

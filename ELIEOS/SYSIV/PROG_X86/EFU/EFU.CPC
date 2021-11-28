@@ -1,0 +1,353 @@
+
+ 
+window/ elie_utility
+	.title 			= "Elie File Utility"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "650"
+	.SY             = "350"
+	.parameters 	= "TYPE:0 SIZBTN:0 BLURRY:6 CTX:2"
+	.Opacity       = "200"
+	.WindowColor	= "005,000,98"
+	.backcolor	= "051,051,051"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/efu.png"
+	.event = ""
+	@#elie_efu create/
+end/ window
+
+ccp/ /set.level = 3
+
+set/ elie_utility.ctx_text[0] = About EFU
+set/ elie_utility.ctx_action[0] = exe/ & %HOST_OS%/SYSIV/PROG_X86/efu/about.CPC
+
+set/ elie_utility.ctx_text[1] = Exit
+set/ elie_utility.ctx_action[1] = close/ elie_utility
+
+set/ elie_utility.ctx_number = 2
+
+ccp/ /set.level = 2
+
+
+
+
+set/ sourcecopie = \#NULL
+set/ sourcedelete = \#NULL
+set/ sourcerenommer = \#NULL
+SET/ SRC_COMPRESS = \#NULL
+SET/ SRC_DECOMPRESS = \#NULL
+
+
+textblock/ copytxt
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "-Copy section-"
+	.PX = "3"
+	.PY = "0"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ sourcy
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Source:"
+	.PX = "25"
+	.PY = "20"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ sourcx
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Source:"
+	.PX = "25"
+	.PY = "120"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ sourcx
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Source:"
+	.PX = "25"
+	.PY = "180"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ destix
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Destination:"
+	.PX = "25"
+	.PY = "60"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ destix
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Destination:"
+	.PX = "25"
+	.PY = "220"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ destix
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Destination:"
+	.PX = "25"
+	.PY = "280"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ deltxt
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "-Delete section-"
+	.PX = "3"
+	.PY = "100"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+textblock/ deltxt
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "-Decompress section-"
+	.PX = "3"
+	.PY = "160"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+
+textblock/ deltxt
+	.Handle = "%elie_efu%"
+	.parameters = "COL:0, BORD:0"
+	.text = "-Folder section-"
+	.PX = "3"
+	.PY = "260"
+	.textcolor = "212,212,212"
+	create/
+end/ textblock
+
+set/ sourcecopie = \#NULL
+set/ destcopie = \#NULL
+set/ sourcedel = \#NULL
+set/ sourcezip = \#NULL
+set/ destzip = \#NULL
+set/ sourcefolder = \#NULL
+
+textbox/ source_copie
+	.handle			= "%elie_efu%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "25"
+        .PY                             = "40"
+	.SX				= "500"
+	.SY				= "15"
+	.backcolor	= "188,188,188"
+	.textcolor	= "000,000,000"
+    .text          = "%sourcecopie%"
+	.event			= "%_exe_path_%=KeyPress"
+    create/
+end/ textbox
+
+textbox/ dest_copie
+	.handle			= "%elie_efu%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "25"
+        .PY                             = "80"
+	.SX				= "500"
+	.SY				= "15"
+	.backcolor	= "188,188,188"
+	.textcolor	= "000,000,000"
+    .text          = "%destcopie%"
+	.event			= "%_exe_path_%=KeyPress"
+    create/
+end/ textbox
+
+textbox/ del_data
+	    .handle			= "%elie_efu%"
+	    .parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX             = "25"
+        .PY             = "140"
+	    .SX				= "500"
+	    .SY				= "15"
+	    .backcolor  	= "188,188,188"
+	    .textcolor  	= "000,000,000"
+        .text           = "%sourcedel%"
+	    .event			= "%_exe_path_%=KeyPress"
+        create/
+end/ textbox
+
+
+textbox/ decomp_archive
+	    .handle			= "%elie_efu%"
+	    .parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX             = "25"
+        .PY             = "200"
+	    .SX				= "500"
+	    .SY				= "15"
+	    .backcolor  	= "188,188,188"
+	    .textcolor  	= "000,000,000"
+        .text           = "%sourcezip%"
+	    .event			= "%_exe_path_%=KeyPress"
+        create/
+end/ textbox
+
+textbox/ decomp_dest
+	    .handle			= "%elie_efu%"
+	    .parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX             = "25"
+        .PY             = "240"
+	    .SX				= "500"
+	    .SY				= "15"
+	    .backcolor  	= "188,188,188"
+	    .textcolor  	= "000,000,000"
+        .text           = "%destzip%"
+	    .event			= "%_exe_path_%=KeyPress"
+        create/
+end/ textbox
+
+textbox/ folder_dest
+	    .handle			= "%elie_efu%"
+	    .parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX             = "25"
+        .PY             = "300"
+	    .SX				= "500"
+	    .SY				= "15"
+	    .backcolor  	= "188,188,188"
+	    .textcolor  	= "000,000,000"
+        .text           = "%sourcefolder%"
+	    .event			= "%_exe_path_%=KeyPress"
+        create/
+end/ textbox
+
+
+button/ copy_button
+	.Handle			= "%elie_efu%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "535"
+	.PY				= "53"
+	.SX				= "100"
+	.SY				= "30"
+	.text			= "Copy"
+	.textcolor  	= "209,209,209"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+button/ del_button
+	.Handle			= "%elie_efu%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "535"
+	.PY				= "133"
+	.SX				= "100"
+	.SY				= "30"
+	.text			= "Delete"
+	.textcolor  	= "209,209,209"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+button/ decomp_button
+	.Handle			= "%elie_efu%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "535"
+	.PY				= "213"
+	.SX				= "100"
+	.SY				= "30"
+	.text			= "Decompress"
+	.textcolor  	= "209,209,209"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+button/ folder_button
+	.Handle			= "%elie_efu%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "535"
+	.PY				= "293"
+	.SX				= "100"
+	.SY				= "30"
+	.text			= "Create"
+	.textcolor  	= "209,209,209"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+function/ copy_button.Click()
+
+         textbox/ /modif:source_copie
+			 @#srcdata .text
+		 end/ textbox
+		 
+		 textbox/ /modif:dest_copie
+			 @#destdata .text
+		 end/ textbox
+		 
+		 set/ octets = 1
+		 cmd/ /thread copy/ %srcdata%, %destdata% /octets:octets
+		  /F:ELIE.MSGBOX(ElieOS,File copied!,1)
+
+end/ function
+
+function/ del_button.Click()
+
+          textbox/ /modif:del_data
+			 @#deldata .text
+		  end/ textbox
+		 
+		 CMD/ /THREAD delete/ %deldata%
+		  /F:ELIE.MSGBOX(ElieOS,File deleted!,1)
+
+end/ function
+
+
+
+function/ decomp_button.Click()
+
+         textbox/ /modif:decomp_archive
+			 @#srczip .text
+		 end/ textbox
+		 
+		 textbox/ /modif:decomp_dest
+			 @#decomdest .text
+		 end/ textbox
+		 
+		 cmd/ /thread decompress/ %srczip% %decomdest%
+
+		 /F:ELIE.MSGBOX(ElieOS,File decompressed!,1)
+
+end/ function
+
+
+
+function/ folder_button.Click()
+
+          textbox/ /modif:folder_dest
+			 @#folderdata .text
+		  end/ textbox
+
+		  folder/ %folderdata%
+
+		  /F:ELIE.MSGBOX(ElieOS,Folder created!,1)
+
+end/ function
+
+
+

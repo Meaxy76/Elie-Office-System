@@ -1,0 +1,526 @@
+rem/ Menu de Elie Office System
+rem/ ElieXT Directory 1.0
+
+
+set/ menuprog_POSX = /C((%CPC.SCR.X% / 2) - (580 / 2))
+
+window/ menu_prog
+	.title 			= "ElieXT Directory V4"
+	.px				= "%menuprog_POSX%"
+	.py				= "180"
+	.sx				= "580"
+	.sy				= "284"
+	.Opacity 		= "200"
+	.Parameters		= "TYPE:0 SIZBTN:0 BLURRY:6"
+	.WindowColor	= "050,050,100"
+	.BackColor	= "051,051,051"
+	.icon       = "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/menu.png"
+	.event			= ""
+	@#dirxt create/
+end/ window
+
+
+set/ labellaa = \#NULL
+
+textblock/ labella
+	.Handle     = "%dirxt%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT       = "%labellaa%"
+    .PX         = "0"
+	.PY         = "270"
+    .TEXTCOLOR  = "200,200,200"
+	CREATE/
+END/ textblock
+
+
+picturebox/ cmd_elie
+	.Handle			= "%dirxt%"
+	.Parameters		= "IMGAUTO:2"
+	.PX			    = "10"
+	.PY			    = "10"
+	.sx			    = "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/cmd.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+FUNCTION/ cmd_elie.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "Elie Console"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ cmd_elie.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ cmd_elie.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/CONSOLE/CONSOLE.CPC
+close/ menu_prog
+end/ function
+
+picturebox/ emiko
+	.Handle			= "%dirxt%"
+	.Parameters		= "IMGAUTO:2"
+	.PX			= "80"
+	.PY			= "10"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/emiko.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ emiko.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "Emiko"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ emiko.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ emiko.Click()
+    exe/ & OS/ELIEOS/SYSIV/PROG_X86/EMIKO/MAIN.CPC
+    close/ menu_prog
+end/ function
+
+
+picturebox/ animate
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "150"
+	.PY			= "10"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/anime.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ animate.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "Animate"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ animate.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ animate.Click()
+    close/ menu_prog
+	sys/ /os:elieos
+	
+    cmd/ /thread exe/ & %HOST_OS%/SYSIV/PROG_X86/ANIMATE/ANIME.CPC
+end/ function
+
+
+picturebox/ eliexplorer
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "220"
+	.PY			= "10"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/folder.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ eliexplorer.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "Elie Explorer"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ eliexplorer.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ eliexplorer.Click()
+    exe/ & %HOST_OS%/SYSIV/PROG_X86/EXPLORER/EXPLORER.CPC
+    close/ menu_prog
+end/ function
+
+
+picturebox/ nect_yuki
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "290"
+	.PY			= "10"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/yukib.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ nect_yuki.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "YukiBasic/NECT"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ nect_yuki.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ nect_yuki.Click()
+    gui/ /console
+    exe/ & %HOST_OS%/SYSIV/NECT/COMMAND.NCT
+    close/ menu_prog
+end/ function
+
+
+picturebox/ rgb
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "360"
+	.PY			= "10"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/rgb.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ rgb.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "RGB Viewer"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ rgb.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ rgb.Click()
+    exe/ & %HOST_OS%/SYSIV/PROG_X86/RGB/RGB.CPC
+    close/ menu_prog
+end/ function
+
+
+
+picturebox/ downloader
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "430"
+	.PY			= "10"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/download.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ downloader.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "File downloader"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ downloader.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ downloader.Click()
+    exe/ & %HOST_OS%/SYSIV/PROG_X86/DOWNLOAD/DOWNLOAD.CPC
+    close/ menu_prog
+end/ function
+
+picturebox/ picture_viewer
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "500"
+	.PY			= "10"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/nko.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ picture_viewer.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "ElieDraw"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ picture_viewer.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ picture_viewer.Click()
+    exe/ & %HOST_OS%/SYSIV/PROG_X86/ELIEDRAW/EDRAW.CPC
+    close/ menu_prog
+end/ function
+
+
+picturebox/ ELIEIM
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "10"
+	.PY			= "70"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/CHAT1.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ ELIEIM.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "ElieIM"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ ELIEIM.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ ELIEIM.Click()
+// exe/ & OS/ELIEOS/SYSIV/PROG_X86/AikoIRC/AikoIRC.CPC
+
+ exe/ & %HOST_OS%/SYSIV/PROG_X86/ELIEIM/ELIEIM.CPC
+close/ menu_prog
+end/ function
+
+
+picturebox/ PC98DOS
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "80"
+	.PY			= "70"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/PC98.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ PC98DOS.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "PC98/DOS"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ PC98DOS.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ PC98DOS.Click()
+exe/ OS/ELIEOS/SYSIV/PROG_X86/PC98/PC98.CPC
+close/ menu_prog
+end/ function
+
+
+
+picturebox/ eliege_win32
+	.Handle			= "%dirxt%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "150"
+	.PY			= "70"
+	.SX			= "60"
+	.SY		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/nko.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ eliege_win32.MouseEnter()
+	
+		textblock/ /modif:labella
+			.text			= "ElieGE test"
+			.textcolor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+	
+end/ function
+
+function/ eliege_win32.MouseLeave()
+	
+	textblock/ /modif:labella
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labella
+		refresh/ menu_prog
+
+	
+end/ function
+
+function/ eliege_win32.Click()
+    exe/ & %HOST_OS%/SYSIV/PROG_X86/ELIEGE/GAME.CPC
+    close/ menu_prog
+end/ function
+
+
+
+
+

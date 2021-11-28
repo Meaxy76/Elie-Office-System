@@ -1,0 +1,274 @@
+
+
+// If you update Cpcdos and ElieOS doesn't work anymore it's not my god damn problem!
+// You are Warned on this if you read this code baka!
+// Love you <3
+
+
+
+window/ Cpc_update_wtf_whyyyy
+	.title				= "Cpcdos Updater"
+	.px					= "50"
+	.py					= "150"
+	.sx					= "600"
+	.sy					= "490"
+	.opacity			= "255"
+	.parameters			= "TYPE:0 REDUCT:0 SIZ:0"
+	.backcolor		    = "%ELIE.WINDOW.COLOR%"
+	.event				= ""
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/upgrade.png"
+	@#Cpc_up_to_date_bitch create/
+end/ window
+
+set/ deposit_server = deposit.cpcdos.net
+
+
+ccp/ /set.level = 2
+
+
+
+textblock/ lineone
+	.Handle     = "%Cpc_up_to_date_bitch%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT       = "[UPDATE] Checking kernel update to the %deposit_server%"
+    .PX         = "0"
+	.PY         = "0"
+    .TextColor  = "204,204,204"
+	create/
+end/ textblock
+
+
+set/ DirPath = OS/ELIEOS/SYSIV/PROG_X86/UPDATER/CPCDOS/%deposit_server%
+
+
+download/ /TEMP:OS/ELIEOS/SYSIV/PROG_X86/UPDATER/CPCDOS/%deposit_server% http://%deposit_server%/update.php?command=update
+
+ccp/ /pause 2000
+
+
+@#_URL open/ %DirPath%/update.php
+
+
+set/ http_present = /F:cpc.instr(%_URL%,http://)
+if/ "%http_present%" < "1" then:
+	textblock/ lineone
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[ERROR] Problem during update checking"
+             .PX         = "0"
+	         .PY         = "10"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+	stop/
+end/ if
+
+
+set/ version_pos_deb = /F:cpc.instrrev(%_URL%,/)
+set/ version = /f:cpc.mid(%_URL%,%version_pos_deb%)
+set/ version_pos_fin = /f:cpc.mid(%version%,_)
+set/ version = /f:cpc.mid(%version%, 1, %version_pos_fin%)
+
+	textblock/ lineone
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[UPDATE] New update found! (%version%)"
+             .PX         = "0"
+	         .PY         = "10"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+ccp/ /pause 1000
+
+	textblock/ lineone
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[UPDATE] Downloading new version in progress..."
+             .PX         = "0"
+	         .PY         = "20"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+
+ccp/ /set.level = 2
+
+set/ VAR_Progress = 0
+set/ VAR_Speed = 0
+set/ VAR_Bytes = 0
+set/ VAR_Socket = 0
+
+ccp/ /set.level = 1
+
+
+
+
+CMD/ /thread download/ /TEMP:OS/ELIEOS/SYSIV/PROG_X86/UPDATER/CPCDOS/%deposit_server% %_URL% /Progression:VAR_Progress /BytesBySec:VAR_Speed /Bytes:VAR_Bytes /socket:VAR_Socket
+// [MAX] 
+
+	textblock/ dwnload
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[UPDATE] Type 'c' to cancel."
+             .PX         = "0"
+	         .PY         = "30"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+	textblock/ var_dwnload
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = ""
+             .PX         = "0"
+	         .PY         = "40"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+
+// @#py pos/ y
+// set/ py = /c(%py% - 1)
+
+set/ key = 0
+
+:LOOP:
+ccp/ /pause 1000
+
+// pos/ x:1
+// pos/ y:%py%
+
+set/ Speed = /C(%VAR_Speed% / 1024)
+set/ Speed = /F:CPC.INT(%Speed%)
+
+set/ Bytes = /C(%VAR_Bytes% / 1024)
+set/ Bytes = /F:CPC.INT(%Bytes%)
+
+set/ /key key
+
+
+       textblock/ /modif:var_dwnload
+              .TEXT       = "[UPDATE] Socket:%VAR_Socket% - Downloading : %VAR_Progress%%  Speed:%Speed% ko/s  Bytes:%Bytes% ko"
+              .TextColor  = "204,204,204"
+              create/
+       end/ textblock
+
+	   ProgressBar/ dlbar
+            .handle = "%%Cpc_up_to_date_bitch%%"
+            .parameters = "IMGAUTO:2"
+            .text = "%VAR_Progress%"
+            .value = "%VAR_Progress%"
+            .PX = "408"
+            .PY = "343"
+            .SX = "200"
+            .SY = "21"
+            .backcolor = "200,255,240"
+            .textcolor = "000,000,000"
+            .image = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRBL.png"
+            .event = "%_EXE_PATH_%"
+             create/
+       end/ ProgressBar
+
+	   refresh/ dlbar
+       refresh/ var_dwnload
+       refresh/ Cpc_update_wtf_whyyyy
+
+if/ "%key%" == "c" then:Goto/ CANCEL
+if/ "%VAR_progress%" < "100" then: Goto/ LOOP
+if/ "%VAR_progress%" == "100" then: Goto/ CONTINUE
+
+:CANCEL:
+client/ /send:%VAR_Socket% #STOP
+ccp/ /pause 1000
+	textblock/ wtf_bruh
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[UPDATE] Cancelled!"
+             .PX         = "0"
+	         .PY         = "50"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+    ccp/ /pause 2500
+    close/ Cpc_update_wtf_whyyyy
+stop/
+
+
+:CONTINUE:
+ccp/ /set.level = 2
+
+
+set/ FileName_pos = /F:cpc.instrrev(%_URL%,/)
+set/ FileName_pos = /C(%FileName_pos% + 1)
+
+set/ FileName = /F:cpc.mid(%_URL%,%FileName_pos%)
+
+
+set/ size_zip = /F:cpc.file_size(%DirPath%/%FileName%)
+if/ "%size_zip%" > "1000" then:
+ccp/ /pause 1000
+	textblock/ finish_him
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[UPDATE] Downloaded!"
+             .PX         = "0"
+	         .PY         = "50"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+else:
+ccp/ /pause 1000
+	textblock/ no_wtf
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "Problem during update archive file, please try again."
+             .PX         = "0"
+	         .PY         = "50"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+   stop/
+end/ if
+
+ccp/ /pause 1000
+
+	textblock/ no_wtf
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[UPDATE] Installation of Cpcdos update..."
+             .PX         = "0"
+	         .PY         = "60"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+decompress/ %DirPath%/%FileName% .
+
+
+
+@#KRNLDATA OPEN/ KRNL/KRNL.CPC
+
+WRITE/ KRNL/KRNL.CPC = %KRNLDATA%%CPC.CR%start/
+COPY/ OS/ELIEOS/SYSIV/ELIE32/LIBS/INIT/DOS.CPC, KRNL/INIT/DOS.CPC
+COPY/ OS/ELIEOS/SYSIV/ELIE32/LIBS/INIT/EXEC.BAT, DRIVERS/DOS/EXEC.BAT
+COPY/ OS/ELIEOS/SYSIV/ELIE32/LIBS/INIT/SCRIPT2.BAT, DRIVERS/NETWORK/SCRIPT2.BAT
+COPY/ OS/ELIEOS/SYSIV/ELIE32/LIBS/INIT/OS.LST, OS/OS.LST
+
+
+
+ccp/ /pause 1000
+
+	textblock/ no_wtf
+	         .Handle     = "%Cpc_up_to_date_bitch%"
+	         .PARAMETERS = "COL:0, BORD:0"
+	         .TEXT       = "[UPDATE] Installed! Restart to apply!"
+             .PX         = "0"
+	         .PY         = "70"
+             .TextColor  = "204,204,204"
+	         create/
+    end/ textblock
+
+

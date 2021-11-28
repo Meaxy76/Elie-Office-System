@@ -1,0 +1,112 @@
+
+
+
+window/ option_bar
+	.title 			= "Bar Option"
+	.px				= "1"
+	.py				= "25"
+	.sx				= "168"
+	.sy				= "105"
+	.Opacity 		= "0"
+	.parameters		= "TYPE:4 CTN:1 SHADOW:0 TASKBARHIDE:1"
+	.BackColor	    = "051,051,051"
+	@#OPT_WIN create/
+end/ window
+
+
+
+    // TOP LEFT
+    picturebox/ Win_context_menu_img_TL
+        .Handle			= "%OPT_WIN%"
+        .parameters		= "IMGAUTO:0"
+        .px				= "0"
+        .py				= "0"
+        .sx				= "7"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_TL.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+    SET/ Pos_Right_Img = /c(%CPC.SCR.X% - 7)
+	
+    // TOP RIGHT
+    picturebox/ Win_context_menu_img_TR
+        .Handle			= "%OPT_WIN%"
+        .parameters		= "IMGAUTO:0"
+        .px				= "161"
+        .py				= "0"
+        .sx				= "7"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_TR.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+    SET/ SIZE_X_OK = /c(%CPC.SCR.X% - 14)
+	    // TOP MIDDLE
+    picturebox/ Win_context_menu_img_M
+        .Handle			= "%OPT_WIN%"
+        .parameters		= "IMGAUTO:2"
+        .px				= "7"
+        .py				= "0"
+        .sx				= "154"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_M.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+	    // CENTER - MIDDLE
+    picturebox/ Win_context_menu_img_M
+        .Handle			= "%OPT_WIN%"
+        .parameters		= "IMGAUTO:2"
+        .px				= "0"
+        .py				= "7"
+        .sx				= "168"
+        .sy				= "91"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_M.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+	    
+     // DOWN LEFT
+    picturebox/ Win_context_menu_img_TL
+        .Handle			= "%OPT_WIN%"
+        .parameters		= "IMGAUTO:0"
+        .px				= "0"
+        .py				= "98"
+        .sx				= "7"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_DL.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+    // DOWN MIDDLE
+    picturebox/ Win_context_menu_img_M
+        .Handle			= "%OPT_WIN%"
+        .parameters		= "IMGAUTO:2"
+        .px				= "7"
+        .py				= "98"
+        .sx				= "154"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_M.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+
+    // DOWN RIGHT
+    picturebox/ Win_context_menu_img_TR
+        .Handle			= "%OPT_WIN%"
+        .parameters		= "IMGAUTO:0"
+        .px				= "161"
+        .py				= "98"
+        .sx				= "7"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_DR.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox

@@ -1,0 +1,48 @@
+rem/ ElieDraw for Cpcdos OSx
+
+Window/ bitmap_test
+
+        .title          = "ElieDraw Win32"
+        .parameters     = ""
+        .px             = "800"
+        .py             = "400"
+        .sx             = "800"
+        .sy             = "600"
+        .opacity        = "255"
+        .WindowColor    = "255,255,255"
+        .TitleColor     = "255,200,100"
+        .BackColor      = "255,255,255"
+        .events         = ""
+
+        @#window_handle create/
+
+End/ Window
+
+sys/ /debug = 2
+
+
+// GZE
+@#NumeroThread cmd/ /thread[MAX] exe/ /pe OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/eliedraw.exe
+
+// Convertir en handle
+Fix/ Handle = /C(%NumeroThread% * 1024)
+
+CCP/ /PAUSE 3000
+
+@#ImgID SYS/ /BITMAP /Get /IDbyHandle %Handle%
+
+
+Picturebox/ render
+
+
+        .handle         = "%window_handle%"
+        .parameters     = "UPD:1"
+        .px             = "0"
+        .py             = "0"
+        .sx             = "800"
+        .sy             = "600"
+        .image          = "#%ImgID%"
+
+        create/
+
+End/ Picturebox

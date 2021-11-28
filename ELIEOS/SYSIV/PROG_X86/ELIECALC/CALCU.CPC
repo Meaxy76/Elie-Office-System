@@ -1,0 +1,536 @@
+rem/ Elie Office System Calculator
+rem/ 01/01/2019
+rem/ Meaxy Kusama
+
+ccp/ /set.level = 2 
+
+Window/ calc_elie
+        .title = "ElieCalc"
+        .parameters = "TYPE:0 SIZBTN:0 BLURRY:6 CTX:2"
+        .backcolor = "051,051,051"
+        .WindowColor	= "051,051,051"
+	    .Opacity 		= "200"
+        .SX = "260"
+        .SY = "210"
+        .px = "200"
+        .py = "200"
+		.icon = "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/calc.png"
+        @#PROG_CALC create/
+end/ Window
+
+
+ccp/ /set.level = 3
+
+set/ calc_elie.ctx_text[0] = About ElieCalc
+set/ calc_elie.ctx_action[0] = exe/ & %HOST_OS%/SYSIV/PROG_X86/ELIECALC/about.CPC
+
+set/ calc_elie.ctx_text[1] = Exit
+set/ calc_elie.ctx_action[1] = close/ calc_elie
+
+set/ calc_elie.ctx_number = 2
+
+ccp/ /set.level = 2
+
+set/ data = \#NULL
+
+textbox/ calc_zone
+	.handle			= "%PROG_CALC%"
+	.parameters 	= "EDIT:0 MULTILINE:1 COL:1"
+	.PX				= "10"
+	.PY				= "10"
+	.SX				= "245"
+	.SY				= "17"
+	.backcolor	= "255,255,255"
+	.textcolor	= "000,000,000"
+	.text			= "%data%"
+	.event			= "%_exe_path_%"
+	create/
+end/ textbox
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+button/ btn_001
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "40"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "1"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_001.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%1"
+			 create/
+		 end/ textbox
+end/ function
+/////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_002
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "60"
+	.PY				= "40"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "2"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_002.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%2"
+			 create/
+		 end/ textbox
+end/ function
+/////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_003
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "110"
+	.PY				= "40"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "3"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_003.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%3"
+			 create/
+		 end/ textbox
+end/ function
+/////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_004
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "80"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "4"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_004.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%4"
+			 create/
+		 end/ textbox
+end/ function
+//////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_005
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "60"
+	.PY				= "80"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "5"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_005.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%5"
+			 create/
+		 end/ textbox
+end/ function
+/////////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_006
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "110"
+	.PY				= "80"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "6"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_006.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%6"
+			 create/
+		 end/ textbox
+end/ function
+////////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_007
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "120"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "7"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_007.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%7"
+			 create/
+		 end/ textbox
+end/ function
+////////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_008
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "60"
+	.PY				= "120"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "8"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_008.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%8"
+			 create/
+		 end/ textbox
+end/ function
+///////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_009
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "110"
+	.PY				= "120"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "9"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_009.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%9"
+			 create/
+		 end/ textbox
+end/ function
+//////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_nbp
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "160"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "."
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_nbp.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%."
+			 create/
+		 end/ textbox
+end/ function
+///////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_000
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "60"
+	.PY				= "160"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "0"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_000.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data%0"
+			 create/
+		 end/ textbox
+end/ function
+//////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_cl
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "160"
+	.PY				= "40"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "C"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_cl.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = ""
+			 create/
+		 end/ textbox
+end/ function
+//////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_plu
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "210"
+	.PY				= "40"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "+"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_plu.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data% + "
+			 create/
+		 end/ textbox
+end/ function
+/////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_moins
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "210"
+	.PY				= "120"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "-"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_moins.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data% - "
+			 create/
+		 end/ textbox
+end/ function
+/////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_div
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "210"
+	.PY				= "160"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "/"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_div.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data% / "
+			 create/
+		 end/ textbox
+end/ function
+////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_mul
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "210"
+	.PY				= "80"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "*"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_mul.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data% * "
+			 create/
+		 end/ textbox
+end/ function
+///////////////////////////////////////////////////////////////////////////////////////
+button/ btn_par1
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "160"
+	.PY				= "80"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "("
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_par1.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data% ("
+			 create/
+		 end/ textbox
+end/ function
+////////////////////////////////////////////////////////////////////////////////////////
+button/ btn_par2
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "160"
+	.PY				= "120"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= ")"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_par2.Click()
+        
+		 textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%data% )"
+			 create/
+		 end/ textbox
+end/ function
+////////////////////////////////////////////////////////////////////////////////////
+button/ btn_eg
+	.Handle			= "%PROG_CALC%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "110"
+	.PY				= "160"
+	.SX				= "40"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "="
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/BUTTON/BTN_GRAY.png"
+	.textcolor	= "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_eg.Click()  
+               
+                textbox/ /modif:calc_zone
+			 @#data .text
+		 end/ textbox
+
+set/ resultat1 = /C(%data%)
+
+
+               textbox/ /modif:calc_zone
+			 @#data .text
+			 .text = "%resultat1%"
+			 create/
+		 end/ textbox
+
+end/ function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

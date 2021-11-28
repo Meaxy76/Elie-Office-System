@@ -1,0 +1,648 @@
+rem/ Menu de Elie Office System
+rem/ ElieXT Directory 1.0
+
+
+FIX/ menuprog_POSX = /C((%CPC.SCR.X% / 2) - (580 / 2))
+
+window/ setting_window
+	.title 			= "Settings"
+	.px				= "%menuprog_POSX%"
+	.py				= "180"
+	.sx				= "580"
+	.sy				= "284"
+	.Opacity 		= "255"
+	.Parameters		= "TYPE:0"
+	.WindowColor	= "050,050,100"
+	.BackColor  	= "%ELIE.WINDOW.COLOR%"
+	.event			= ""
+	@#setting_elie create/
+end/ window
+
+
+set/ labellba = \#NULL
+
+textblock/ labellb
+	.Handle     = "%setting_elie%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT       = "%labellba%"
+    .PX         = "0"
+	.PY         = "270"
+    .TextColor  = "000,000,000"
+	create/
+end/ textblock
+
+
+
+
+textblock/ testun
+	.Handle = "%setting_elie%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.text = "Personnal"
+	.PX = "2"
+	.PY = "0"
+	.TextColor = "200,200,200"
+	create/
+end/ textblock
+
+textblock/ testdeu
+	.Handle = "%setting_elie%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Hardware"
+	.PX = "2"
+	.PY = "90"
+	.TextColor = "200,200,200"
+	create/
+end/ textblock
+
+textblock/ testtroi
+	.Handle = "%setting_elie%"
+	.parameters = "COL:0, BORD:0"
+	.text = "System"
+	.PX = "2"
+	.PY = "184"
+	.TextColor = "200,200,200"
+	create/
+end/ textblock
+
+picturebox/ account
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "10"
+	.PY			= "10"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/user.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ account.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "Account"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ account.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ account.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/setting/ACC_SETT.CPC
+close/ setting_window
+end/ function
+
+
+
+picturebox/ background
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "80"
+	.PY			= "10"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/wallppr.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ background.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "Background"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ background.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ background.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/setting/BCKGRND.CPC
+close/ setting_window
+end/ function
+
+
+
+// picturebox/ mouse_cursor
+//	.Handle			= "%setting_elie%"
+//	.parameters		= "IMGAUTO:2"
+//	.PX			= "80"
+//	.PY			= "10"
+//	.sx			= "60"
+//	.sy		        = "60"
+//	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/wallppr.png"
+//	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+//	create/
+// end/ Picturebox
+
+
+// function/ mouse_cursor.MouseEnter()
+	
+	//	textblock/ /modif:labellb
+	//		.text			= "Mouse Cursor"
+	//		.TextColor = "200,200,200"
+	//		create/
+	//	end/ textblock
+	//	refresh/ labellb
+	//	refresh/ setting_window
+	
+// end/ function
+
+// function/ mouse_cursor.MouseLeave()
+	
+	// textblock/ /modif:labellb
+		//	.text			= ""
+		//	create/
+		// end/ textblock
+		// refresh/ labellb
+		// refresh/ setting_window
+
+	
+// end/ function
+
+// function/ mouse_cursor.Click()
+   // exe/ & %HOST_OS%/SYSIV/PROG_X86/setting/BCKGRND.CPC
+   // close/ setting_window
+// end/ function
+
+
+
+picturebox/ cpu
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "10"
+	.PY			= "106"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/cpu.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ cpu.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "System Managers"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ cpu.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ cpu.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/SETTING/SYS_GEST.CPC
+close/ setting_window
+end/ function
+
+
+picturebox/ resolution
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "80"
+	.PY			= "106"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/resol.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ resolution.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "Resolution"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ resolution.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ resolution.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/SETTING/SCREEN.CPC
+close/ setting_window
+end/ function
+
+
+picturebox/ web
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "150"
+	.PY			= "106"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/web.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ web.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "Network"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ web.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ web.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/SETTING/WEB.CPC
+close/ setting_window
+end/ function
+
+
+picturebox/ liveboot
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "220"
+	.PY			= "106"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/elieboot.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ liveboot.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "Liveboot"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ liveboot.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ liveboot.Click()
+ /F:ELIE.MSGBOX(Not avaible on ElieOS3 Beta,ElieOS,1,0)
+close/ setting_window
+end/ function
+
+
+
+// picturebox/ keyboard_set
+//  	.Handle			= "%setting_elie%"
+//	.parameters		= "IMGAUTO:2"
+//	.PX			= "290"
+//	.PY			= "106"
+//	.sx			= "60"
+//	.sy		        = "60"
+//	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/keyb.png"
+//	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+//	create/
+// end/ Picturebox
+
+
+// function/ keyboard_set.MouseEnter()
+	
+//		textblock/ /modif:labellb
+//			.text			= "Keyboard"
+//			.TextColor = "200,200,200"
+//			create/
+//		end/ textblock
+//		refresh/ labellb
+//		refresh/ setting_window
+	
+// end/ function
+
+// function/ keyboard_set.MouseLeave()
+	
+//	textblock/ /modif:labellb
+//			.text			= ""
+//			create/
+//		end/ textblock
+//		refresh/ labellb
+//		refresh/ setting_window
+
+	
+// end/ function
+
+// function/ keyboard_set.Click()
+// /F:ELIE.MSGBOX(Not avaible on ElieOS3 Beta,ElieOS,1,0)
+// close/ setting_window
+// end/ function
+
+
+
+
+picturebox/ backup
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "10"
+	.PY			= "200"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/backup.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ backup.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "BackUpXT"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ backup.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ backup.Click()
+
+ /F:ELIE.MSGBOX(Not avaible on ElieOS3 Beta,ElieOS,1,0)
+// exe/ & %HOST_OS%/SYSIV/PROG_X86/SETTING/BACKUPXT.CPC
+close/ setting_window
+end/ function
+
+
+picturebox/ hdd
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "80"
+	.PY			= "200"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/hdd.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ hdd.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "HDD Manager"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ hdd.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ hdd.Click()
+close/ setting_window
+gui/ /CONSOLE
+   DOS/ OS/ELIEOS/SYSIV/PROG_X86/DISKPART/DISKPART.BAT
+   SYS/ /OS:ELIEOS
+   gui/
+end/ function
+
+
+picturebox/ reset
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "150"
+	.PY			= "200"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/reset.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ reset.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "Reset"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ reset.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ reset.Click()
+exe/ & %HOST_OS%/SYSIV/PROG_X86/SETTING/RESET.CPC
+close/ setting_window
+end/ function
+
+
+picturebox/ about
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "220"
+	.PY			= "200"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/info.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ about.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "About ElieOS"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ about.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ about.Click()
+close/ setting_window
+exe/ & %HOST_OS%/SYSIV/ELIE32/ABOUT/ABOUT.CPC
+
+end/ function
+
+
+picturebox/ cpc_upd
+	.Handle			= "%setting_elie%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "290"
+	.PY			= "200"
+	.sx			= "60"
+	.sy		        = "60"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/upgrade.png"
+	rem/.opacite		= "150"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ cpc_upd.MouseEnter()
+	
+		textblock/ /modif:labellb
+			.text			= "Cpcdos Updater"
+			.TextColor = "200,200,200"
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+	
+end/ function
+
+function/ cpc_upd.MouseLeave()
+	
+	textblock/ /modif:labellb
+			.text			= ""
+			create/
+		end/ textblock
+		refresh/ labellb
+		refresh/ setting_window
+
+	
+end/ function
+
+function/ cpc_upd.Click()
+close/ setting_window
+cmd/ /thread exe/ & %HOST_OS%/SYSIV/PROG_X86/UPDATER/UPDGUI.CPC
+end/ function
+
+

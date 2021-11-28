@@ -1,0 +1,95 @@
+
+
+// SYS/ /debug = 2
+
+// Sys/ /debug /cpinticore = 1
+
+window/ Elie_Mode
+	.title				= "ElieWWW (E-Mode)"
+	.px					= "150"
+	.py					= "60"
+	.sx					= "800"
+	.sy					= "600"
+	.Opacity 	    	= "200"
+	.parameters			= "TYPE:0 BLURRY:6 CTX:2"
+	.backcolor		    = "%ELIE.WINDOW.COLOR%"
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/web.png"
+	.event				= ""
+	@#emode_start create/
+end/ window
+
+ SET/ TRUE_SEARCH = /F:CPC.FILE_EXIST(OPENGL32.DLL)
+ 
+ if/ "%TRUE_SEARCH%" == "1" then:
+ // ElieWWW Will load normally
+
+ else:
+ // ElieWWW will stop loading
+		 /F:ELIE.MSGBOX(ElieOS,Error,OpenGL32.dll not found!,3)
+		 stop/
+ end/ if
+
+
+ccp/ /set.level = 3
+
+set/ Elie_Mode.ctx_text(0) = About E-Mode
+set/ Elie_Mode.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/emode/about.CPC
+
+set/ Elie_Mode.ctx_text(1) = Exit
+set/ Elie_Mode.ctx_action(1) = close/ Elie_Mode
+
+set/ Elie_Mode.ctx_number = 2
+
+ccp/ /set.level = 2
+
+
+
+picturebox/ no_internet_baka
+	.Handle			= "%emode_start%"
+	.Parameters		= "IMGAUTO:2 UPD:1"
+	.PX		    	= "0"
+	.PY		    	= "0"
+	.SX		    	= "800"
+	.SY		        = "600"
+	.Image			= "OS/ElieOS/SYSIV/PROG_X86/EMODE/ERR/test.png"
+	create/
+end/ Picturebox
+
+CCP/ /PAUSE 2000
+
+@#NumeroThread cmd/ /thread[MAX] exe/ /Win32 OS/ElieOS/SYSIV/PROG_X86/EMode/ElieWWW.exe
+
+set/ Handle = /C(%NumeroThread% * 1024)
+
+CCP/ /PAUSE 2000
+
+@#ImgID SYS/ /BITMAP /Get /IDbyHandle %Handle%
+
+close/ no_internet_baka
+
+Picturebox/ render
+
+
+       .handle         = "%emode_start%"
+       .parameters     = "UPD:1"
+       .px             = "0"
+       .py             = "0"
+       .sx             = "800"
+       .sy             = "600"
+       .image          = "#%ImgID%"
+
+       create/
+
+End/ Picturebox
+
+
+
+function/ Elie_Mode.WindowClosing()
+
+   close/ /tid:%NumeroThread%
+   close/ render
+   
+end/ function
+
+
+

@@ -1,0 +1,177 @@
+
+ccp/ /optimization = 1
+
+
+
+window/ lockyscreenie
+	.title 			= "LockScreenV2"
+	.px				= "0"
+	.py				= "0"
+	.sx				= "%CPC.SCR.X%"
+	.sy				= "%CPC.SCR.Y%"
+	.opacity 		= "255"
+	.parameters		= "TYPE:4 CTN:1 OMBRE:0"
+	.WindowColor	        = "051,051,051"
+	.BackColor	        = "051,051,051"
+	@#My_Lock_SCREEN_YEET create/
+end/ window
+
+SET/ USER_PASS_FIELD_X = /C((%CPC.SCR.X% / 2) - (200/ 2))
+SET/ USER_PASS_FIELD_Y = /C((%CPC.SCR.Y% / 2) - (15 / 2))
+
+set/ OSNAMEPOSY = /C(%CPC.SCR.Y% - 23)
+
+textblock/ OS_NAME
+	.Handle = "%My_Lock_SCREEN_YEET%"
+	.parameters = "COL:0, BORD:0"
+	.TEXTE = "Version: %OS_VERSION%"
+	.PX = "3"
+	.PY = "%OSNAMEPOSY%"
+	rem/.SX = "80"
+	rem/.SY = "10"
+	.textcolor = "211,211,211"
+	create/
+end/ textblock
+
+set/ COMPNAMEPOSY = /C(%CPC.SCR.Y% - 13)
+
+textblock/ COMP_NAME
+	.Handle = "%My_Lock_SCREEN_YEET%"
+	.parameters = "COL:0, BORD:0"
+	.TEXTE = "Copyright (c) Meaxy"
+	.PX = "3"
+	.PY = "%COMPNAMEPOSY%"
+	rem/.SX = "80"
+	rem/.SY = "10"
+        .textcolor = "211,211,211"
+	create/
+end/ textblock
+
+
+
+SET/ USERNAME_X = /C((%CPC.SCR.X% / 2) - (70 / 2))
+
+SET/ USERNAME_Y = /C(%USER_PASS_FIELD_Y% - 40)
+
+textblock/ user_name_LOLOLOL
+	.Handle = "%My_Lock_SCREEN_YEET%"
+	.parameters = "COL:0, BORD:0"
+	.TEXTE = "%ACTIVE_USER%"
+	.PX = "%USERNAME_X%"
+	.PY = "%USERNAME_Y%"
+	rem/.SX = "80"
+	rem/.SY = "10"
+	.BackColor = "051,051,051"
+	.TextColor = "211,211,211"
+	create/
+end/ textblock
+
+set/ OS_LOGO_X = /C((%CPC.SCR.X% / 2) - (160 / 2))
+set/ OS_LOGO_Y = /C(%CPC.SCR.Y% - 80)
+
+picturebox/ menu_btn
+	.Handle			= "%My_Lock_SCREEN_YEET%"
+	.parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "%OS_LOGO_X%"
+	.PY			= "%OS_LOGO_Y%"
+	.SX			= "160"
+	.SY		        = "69"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/DESK/elieos.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ picturebox
+
+set/ CURRENT_USER_PASSWORD = \#NULL
+
+SET/ USER_PASS_FIELD_X = /C((%CPC.SCR.X% / 2) - (200/ 2))
+SET/ USER_PASS_FIELD_Y = /C((%CPC.SCR.Y% / 2) - (15 / 2))
+
+Textbox/ your_password_son
+	.handle			= "%My_Lock_SCREEN_YEET%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1 BORD:1"
+    .PX             = "%USER_PASS_FIELD_X%"
+    .PY             = "%USER_PASS_FIELD_Y%"
+	.SX				= "200"
+	.SY				= "15"
+	.BackColor	= "068,068,068"
+	.TextColor	= "211,211,211"
+    .text          = "%CURRENT_USER_PASSWORD%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+SET/ PROFIL_Y = /C(%USER_PASS_FIELD_Y% - 55)
+@#PROFIL_IMG OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/AVATAR.ECF
+
+picturebox/ menu_btn
+	.Handle			= "%My_Lock_SCREEN_YEET%"
+	.parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "%USER_PASS_FIELD_X%"
+	.PY			= "%PROFIL_Y%"
+	.SX			= "42"
+	.SY		        = "42"
+	.Image			= "%PROFIL_IMG%"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ picturebox
+
+
+SET/ log_x = /C(%USER_PASS_FIELD_X% + 205)
+SET/ log_y = /C((%CPC.SCR.Y% / 2) - (25 / 2))
+
+picturebox/ logon
+	.Handle			= "%My_Lock_SCREEN_YEET%"
+	.parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "%log_x%"
+	.PY			= "%log_y%"
+	.SX			= "25"
+	.SY		        = "25"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/BUTTON/right.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ picturebox
+
+function/ logon.Click()
+         textbox/ /modif:your_password_son
+			 @#here_is_a_var_LOL .text
+		 end/ textbox
+		 
+		 @#here_is_your_real_password_biatch open/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/PASSW.ESF
+		 
+		 if/ "%here_is_a_var_LOL%" == "%here_is_your_real_password_biatch%" then:
+		 close/ lockyscreenie
+		 CMD/ /PID:%PID_DESKTOP% exe/ & %HOST_OS%/SYSIV/ELIE32/DESKTOP/ELIEGUI/LAUNCHER.CPC
+         FERMER/ /PID:%PID_LOGIN%
+		 refresh/ /all
+		 else:
+		 // THIS IS NOT YOUR PASSWORD BIATCH
+		  /F:ELIE.MSGBOX(WRONG PASSWORD!,ElieOS,4,0)
+		 end/ if 
+end/ function
+
+set/ shut_my_fuckin_pc_x = /C(%CPC.SCR.X% - 30)
+set/ shut_my_fuckin_pc_y = /C(%CPC.SCR.Y% - 30)
+
+picturebox/ pwoff
+	.Handle			= "%My_Lock_SCREEN_YEET%"
+	.parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "%shut_my_fuckin_pc_x%"
+	.PY			= "%shut_my_fuckin_pc_y%"
+	.SX			= "25"
+	.SY		        = "25"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/DESK/pwoff.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ picturebox
+
+function/ pwoff.Click()
+// Shut your god damn PC
+sys/ /shutdown
+end/ function
+
+
+

@@ -1,0 +1,237 @@
+
+
+	ccp/ /set.level = 4
+   
+   SET/ GUI_ICONPACK = ICONPACK
+   SET/ GUI_CONFIG = GUI_CONF
+  SET/ ELIE.WINDOW.COLOR = 051,051,051
+
+  
+   ccp/ /set.level = 3
+
+
+   
+        // Taskbar standard from ElieOS3 (To edit)
+        // [FR] Image item non focus
+        // [EN] No focus item image
+        SET/ CPC_GUI.TASKBAR.NORMAL = %HOST_OS%/SYSIV/ELIE32/ICONPACK/BUTTON/taskb.png
+
+        // [FR] Image item focus
+        // [EN] Focus item image
+        SET/ CPC_GUI.TASKBAR.FOCUS = %HOST_OS%/SYSIV/ELIE32/ICONPACK/BUTTON/taskl.png
+
+
+        // [FR] Position de depart des items
+        // [EN] Starting position items
+        SET/ CPC_GUI.TASKBAR.POS_X = 40
+        SET/ CPC_GUI.TASKBAR.POS_Y = 0
+
+        // [FR] Taille de la taskbar
+        // [EN] Taskbar size
+        SET/ TASK_SIZ_X = /C(%CPC.SCR.X% - 290)
+        SET/ CPC_GUI.TASKBAR.SIZ_X = %TASK_SIZ_X%
+        SET/ CPC_GUI.TASKBAR.SIZ_Y = 2
+
+        // [FR] Espacement entre les items
+        // [EN] Spacing between items
+        SET/ CPC_GUI.TASKBAR.SPACING_X = 20
+        SET/ CPC_GUI.TASKBAR.SPACING_Y = 0
+
+        // --------- B Y   I T E M S ----------
+
+        // [FR] Nombre de caractere max
+        // [EN] Max char numbers
+        SET/ CPC_GUI.TASKBAR.SIZ_TEXT = 0
+
+        // [FR] Taille de chaque items
+        // [EN] Size for each items
+        SET/ CPC_GUI.TASKBAR.SIZ_ITEM_X = 47
+        SET/ CPC_GUI.TASKBAR.SIZ_ITEM_Y = 47
+
+        // [FR] Positionnement du texte dans l'item
+        // [EN] Text position on item
+        SET/ CPC_GUI.TASKBAR.POS_TEXT_X = 32
+        SET/ CPC_GUI.TASKBAR.POS_TEXT_Y = 60
+
+        // [FR] Positionnement du texte dans l'item
+        // [EN] Text position on item
+        SET/ CPC_GUI.TASKBAR.POS_ICON_X = 2
+        SET/ CPC_GUI.TASKBAR.POS_ICON_Y = 3
+
+        // [FR] Positionnement du texte dans l'item
+        // [EN] Text position on item
+        SET/ CPC_GUI.TASKBAR.SIZ_ICON_X = 40
+        SET/ CPC_GUI.TASKBAR.SIZ_ICON_Y = 40 
+
+        // [FR] Couleur du titre
+        // [EN] Title color
+        SET/ CPC_GUI.TASKBAR.TEXT_R = 240
+        SET/ CPC_GUI.TASKBAR.TEXT_G = 240
+        SET/ CPC_GUI.TASKBAR.TEXT_B = 250
+
+               // [FR] Position X,Y de l'icone de la fenetre
+       // [EN] Windows title X,Y position
+       SET/ CPC_GUI.WINDOW.ICO_PX = 6
+       SET/ CPC_GUI.WINDOW.ICO_PY = 3
+ 
+      // Window 
+       SET/ CPC_GUI.WINDOW.TITLE_RGB = 255,255,255
+	   SET/ CPC_GUI.WINDOW.ICO = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/elie.png
+       SET/ CPC_GUI.WINDOW.BT_CLOSE = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_CLS2.png
+       SET/ CPC_GUI.WINDOW.BT_SIZEUP = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_sizU3.PNG
+       SET/ CPC_GUI.WINDOW.BT_SIZEDOWN = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_sizD3.PNG
+       SET/ CPC_GUI.WINDOW.BT_REDUCT = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_red3.PNG
+       SET/ CPC_GUI.WINDOW.TITLE_SY = 19
+	   exe/ & OS/ELIEOS/SYSIV/ELIE32/LIBS/WINDOW/WINDOW.CPC 
+       // [FR] Position X,Y de l'icone de la fenetre
+       // [EN] Windows title X,Y position
+
+
+       // A retravailler
+
+       // size up
+
+       // [FR] Position X,Y de l'icone de la fenetre
+       // [EN] Windows title X,Y position
+       SET/ CPC_GUI.WINDOW.BT_SIZEUP_PX = 47 
+       set/ CPC_GUI.WINDOW.BT_SIZEUP_PY = 2
+
+       // [FR] Taille X,Y de l'icone de la fenetre 16x16p
+       // [EN] Windows title X,Y Size 16x16p
+       SET/ CPC_GUI.WINDOW.BT_SIZEUP_S = 0
+       SET/ CPC_GUI.WINDOW.BT_SIZEUP_SX = 9
+       SET/ CPC_GUI.WINDOW.BT_SIZEUP_SY = 9
+
+       // [FR] Position relative (Gauche:1, centre:2, droit:3)
+       // [EN] Relative position (Left:1, center:2, right:3)
+       SET/ CPC_GUI.WINDOW.BT_SIZEUP_POSITION = 3
+
+       // size down
+
+       // [FR] Position X,Y de l'icone de la fenetre
+       // [EN] Windows title X,Y position
+       SET/ CPC_GUI.WINDOW.BT_SIZEDOWN_PX = 47
+       SET/ CPC_GUI.WINDOW.BT_SIZEDOWN_PY = 2
+
+       // [FR] Taille X,Y de l'icone de la fenetre 16x16p
+       // [EN] Windows title X,Y Size 16x16p
+       SET/ CPC_GUI.WINDOW.BT_SIZEDOWN_S = 0
+       SET/ CPC_GUI.WINDOW.BT_SIZEDOWN_SX = 9
+       SET/ CPC_GUI.WINDOW.BT_SIZEDOWN_SY = 9
+
+       // [FR] Position relative (Gauche:1, centre:2, droit:3)
+       // [EN] Relative position (Left:1, center:2, right:3)
+       SET/ CPC_GUI.WINDOW.BT_SIZEDOWN_POSITION = 3
+
+       // reduire
+
+       // [FR] Position X,Y de l'icone de la fenetre
+       // [EN] Windows title X,Y position
+       SET/ CPC_GUI.WINDOW.BT_REDUCT_PX = 74
+       SET/ CPC_GUI.WINDOW.BT_REDUCT_PY = 2
+
+       // [FR] Taille X,Y de l'icone de la fenetre 16x16p
+       // [EN] Windows title X,Y Size 16x16p
+       SET/ CPC_GUI.WINDOW.BT_REDUCT_S = 0
+       SET/ CPC_GUI.WINDOW.BT_REDUCT_SX = 9
+       SET/ CPC_GUI.WINDOW.BT_REDUCT_SY = 9
+
+       // [FR] Position relative (Gauche:1, centre:2, droit:3 --> Nombre negatif)
+       // [EN] Relative position (Left:1, center:2, right:3 --> Negative number)
+       SET/ CPC_GUI.WINDOW.BT_REDUCT_POSITION = 3
+
+       // close
+
+       // [FR] Position X,Y de l'icone de la fenetre
+       // [EN] Windows title X,Y position
+       SET/ CPC_GUI.WINDOW.BT_CLOSE_PX = 20
+       SET/ CPC_GUI.WINDOW.BT_CLOSE_PY = 2
+
+       // [FR] Taille X,Y de l'icone de la fenetre 16x16p
+       // [EN] Windows title X,Y Size 16x16p
+       SET/ CPC_GUI.WINDOW.BT_CLOSE_S = 0
+       SET/ CPC_GUI.WINDOW.BT_CLOSE_SX = 9
+       SET/ CPC_GUI.WINDOW.BT_CLOSE_SY = 9
+
+       // [FR] Position relative (Gauche:1, centre:2, droit:3)
+       // [EN] Relative position (Left:1, center:2, right:3)
+       SET/ CPC_GUI.WINDOW.BT_CLOSE_POSITION = 3
+
+
+
+
+           ccp/ /set.level = 3
+           SET/ CPC_GUI.WINDOW.ICO_PX = 6
+           SET/ CPC_GUI.WINDOW.ICO_PY = 3
+           SET/ CPC_GUI.WINDOW.ICO_S = 1	
+           // [FR] Bord gauche du plein ecran
+           // [EN] Left full screen of window
+           set/ CPC_GUI.window.fullscreen_left = 0
+
+           // [FR] Bord droit du plein ecran
+           // [EN] Right full screen of window
+           set/ CPC_GUI.window.fullscreen_right = 0
+
+           // [FR] Bord haut du plein ecran
+           // [EN] Top full screen of window
+           set/ CPC_GUI.window.fullscreen_top = 21
+
+           // [FR] Bord bas du plein ecran
+           // [EN] Down full screen of window
+           set/ CPC_GUI.window.fullscreen_down = 115
+
+           
+       // [FR] Taille X,Y de l'icone de la fenetre 16x16p
+       // [EN] Windows title X,Y Size 16x16p
+       
+       SET/ CPC_GUI.WINDOW.ICO_SX = 16
+       SET/ CPC_GUI.WINDOW.ICO_SY = 16
+
+       
+       ccp/ /set.level = 4
+       // Elie Window design
+       // [FR] Rebord arrondi haut/gauche
+       // [EN] Rounded top/left
+       set/ design_Image[0] = OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/window/WIN_TL.PNG
+       set/ design_Image_pos_relative[0] = 0
+       set/ design_Image_px[0] = 0
+       set/ design_Image_py[0] = 0
+       set/ design_Image_sx[0] = 7
+       set/ design_Image_sy[0] = 7
+       set/ design_Image_param[0] = ""
+       set/ design_Image_alpha[0] = 200
+
+       // [FR] Rebord arrondi haut/droit
+       // [EN] Rounded top/right
+       set/ design_Image[1] = OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/window/WIN_TR.PNG
+       set/ design_Image_pos_relative[1] = 1
+       set/ design_Image_px[1] = 0
+       set/ design_Image_py[1] = 0
+       set/ design_Image_sx[1] = 7
+       set/ design_Image_sy[1] = 7
+       set/ design_Image_param[1] = ""
+       set/ design_Image_alpha[1] = 200
+
+       // [FR] Barre haut central
+       // [EN] Middle top bar
+       set/ design_Image[2] = OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/window/WIN_TM.PNG
+       set/ design_Image_pos_relative[2] = 1
+       set/ design_Image_px[2] = 7
+       set/ design_Image_py[2] = 0
+       set/ design_Image_sx[2] = 0
+       set/ design_Image_sy[2] = 7
+       set/ design_Image_param[2] = "resize(true), sx(win), sxcalc(-14)"
+       set/ design_Image_alpha[2] = 200
+
+       // [FR] Barre titre centrale
+       // [EN] Central title bar
+       set/ design_Image[3] = OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/window/DEF_GUI.PNG
+       set/ design_Image_pos_relative[3] = 1
+       set/ design_Image_px[3] = 0
+       set/ design_Image_py[3] = 7
+       set/ design_Image_sx[3] = 0
+       set/ design_Image_sy[3] = 0
+       set/ design_Image_param[3] = "resize(true) sx(win) sy(title)"
+       set/ design_Image_alpha[3] = 200
+
+

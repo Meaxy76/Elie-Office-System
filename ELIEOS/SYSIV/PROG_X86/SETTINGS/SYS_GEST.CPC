@@ -1,0 +1,68 @@
+///////////////////////////////////
+//// Gestionnaire du Systeme   ////
+//// Elie Office System        ////
+///////////////////////////////////
+
+window/ sys_pad
+	.title 			= "System Managers"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "490"
+	.SY = "100"
+	// .opacity 	= "100"
+	.parameters 	= "TYPE:0 SIZBTN:0"
+	.BackColor	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/cpu.png"
+	.event = ""
+	@#system_gest create/
+end/ window
+
+textblock/ id_cpu
+	.Handle = "%system_gest%"
+	.parameters = "COL:0, BORD:0"
+	.text = "ID: %CPC.SYS.CPU.ID%"
+	.PX = "20"
+	.PY = "3"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock
+
+textblock/ id_vendor
+	.Handle = "%system_gest%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Seller: %CPC.SYS.CPU.VENDOR%"
+	.PX = "20"
+	.PY = "15"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock
+
+textblock/ id_name
+	.Handle = "%system_gest%"
+	.parameters = "COL:0, BORD:0"
+	.text = "CPU name: %CPC.SYS.CPU.NAME%"
+	.PX = "20"
+	.PY = "27"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock
+
+textblock/ id_name
+	.Handle = "%system_gest%"
+	.parameters = "COL:0, BORD:0"
+	.text = "OS: ElieOS %OS_VERSION% 32 bit"
+	.PX = "20"
+	.PY = "39"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock
+
+textblock/ cpu_act
+	.Handle = "%system_gest%"
+	.parameters = "COL:0, BORD:0"
+	.text = "CPU activity: ${CPC.SYS.CPU.ACT} \%"
+	.PX = "20"
+	.PY = "51"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock

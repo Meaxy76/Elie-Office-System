@@ -1,0 +1,76 @@
+ccp/ /set.level = 2 
+
+
+window/ elie_fileutility
+	.title 			= "Path setting"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "370"
+	.SY             = "85"
+	.parameters 	= "TYPE:0 SIZBTN:0"
+	.WindowColor	= "050,050,100"
+	.BackColor  	= "%ELIE.WINDOW.COLOR%"
+	.event = ""
+	@#file_utility create/
+end/ window
+
+
+textblock/ to_link
+	.Handle = "%file_utility%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Path:"
+	.PX = "2"
+	.PY = "10"
+	.textcolor = "233,233,233"
+	create/
+end/ textblock
+
+
+@#DATA OPEN/ OS/ELIEOS/SYSIV/PROG_X86/PC98/PATH.ECF
+
+Textbox/ dataefu1
+	.handle			= "%file_utility%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINE:1"
+	.PX				= "5"
+	.PY				= "25"
+	.SX				= "360"
+	.SY				= "15"
+	.BackColor  	= "255,255,255"
+	.textcolor	    = "000,000,000"
+	.text			= "%DATA%"
+	.event			= "%_exe_path_%"
+	create/
+end/ textbox
+
+
+button/ dw_button
+	.Handle			= "%file_utility%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "260"
+	.PY				= "45"
+	.SX				= "100"
+	.SY				= "30"
+	.text			= "Change"
+	.textcolor	    = "219,219,219"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ dw_button.Click()
+                 
+         textbox/ /modif:dataefu1
+			 @#linky .text
+		 end/ textbox
+  write/ /bin OS/ELIEOS/SYSIV/PROG_X86/PC98/PATH.ECF = %linky%
+  refresh/ explore_pc
+  refresh/ pc98_emu
+	
+end/ function
+
+
+
+
+
+
+

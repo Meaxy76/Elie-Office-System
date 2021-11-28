@@ -1,0 +1,145 @@
+
+
+SET/ ELIE.WINDOW.COLOR = 051,051,051
+
+
+window/ upbar
+	.title 			= "up_bar"
+	.px				= "0"
+	.py				= "0"
+	.sx				= "%CPC.SCR.X%"
+	.sy				= "22"
+    .Opacity 		= "0"
+	.Parameters		= "TYPE:4 CTN:1 BORD:0 SHADOW:0 BLURRY:6 TASKBARHIDE:1"
+	.BackColor  	= "%ELIE.WINDOW.COLOR%"
+	.event			= ""
+	@#launcher_bar create/
+end/ window
+
+
+picturebox/ that_bar
+	.Handle			= "%launcher_bar%"
+	.Parameters		= "IMGAUTO:2 BLURRY:6"
+	.PX				= "0"
+	.PY				= "0"
+	.sx				= "%CPC.SCR.X%"
+	.sy				= "21"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/BUTTON/DEF_GUI1.png"
+	rem/ .event			= ""
+	create/
+ end/ Picturebox
+
+
+
+
+
+picturebox/ BTN_ELIE
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "0"
+	.SX				= "40"
+	.SY				= "21"
+	rem/.opacity		= "255"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/DESK/opt.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,MouseLeave"
+	create/
+end/ Picturebox
+
+
+picturebox/ BTN_FILE
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "40"
+	.PY				= "0"
+	.SX				= "40"
+	.SY				= "21"
+	rem/.opacity		= "255"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/DESK/file.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,MouseLeave"
+	create/
+end/ Picturebox
+
+
+picturebox/ BTN_EDIT
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "80"
+	.PY				= "0"
+	.SX				= "40"
+	.SY				= "21"
+	rem/.opacity		= "255"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/DESK/edit.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,MouseLeave"
+	create/
+end/ Picturebox
+
+
+picturebox/ BTN_EXTRA
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "125"
+	.PY				= "0"
+	.SX				= "40"
+	.SY				= "21"
+	rem/.opacity		= "255"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/DESK/extra.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,MouseLeave"
+	create/
+end/ Picturebox
+
+SET/ POSX = /C(%CPC.SCR.X% - 80)
+
+TEXTBLOCK/ time
+	.Handle = "%launcher_bar%"
+	.PARAMETERS = "COL:1, BORD:0, UPD:1"
+	.TEXT = "${CPC.TIME}"
+	.PX = "%POSX%"
+	.PY = "0"
+	.SX = "45"
+	.SY = "20"
+	.BackColor = "%ELIE.WINDOW.COLOR%"
+	.TextColor = "255,255,255"
+	CREATE/
+end/ TEXTBLOCK
+
+
+set/ NOTY = /C(%CPC.SCR.X% - 106)
+
+picturebox/ notif_center
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2 COL:1"
+	.PX				= "%NOTY%"
+	.PY				= "1"
+	.SX				= "19"
+	.SY				= "19"
+	 .CouleurFond    = "255,255,255"
+	rem/.opacity		= "255"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/noco.png"
+	rem/.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+set/ NOTY = /C(%CPC.SCR.X% - 25)
+
+picturebox/ notif_center
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2 COL:1"
+	.PX				= "%NOTY%"
+	.PY				= "1"
+	.SX				= "19"
+	.SY				= "19"
+	 .CouleurFond    = "255,255,255"
+	rem/.opacity		= "255"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/tskmngr.png"
+	rem/.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+exe/ & OS/ELIEOS/SYSIV/ELIE32/DE/ElieDE/LAUNCHER.CPC
+exe/ & OS/ELIEOS/SYSIV/ELIE32/DE/ElieDE/TASK.CPC
+
+
+

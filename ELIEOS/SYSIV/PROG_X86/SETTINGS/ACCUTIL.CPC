@@ -1,0 +1,115 @@
+
+
+
+window/ user_sett
+	.title				= "Password Setting"
+	.px					= "50"
+	.py					= "60"
+	.sx					= "230"
+	.sy					= "120"
+	.opacity			= "255"
+	.parameters			= "TYPE:0"
+	.backcolor		    = "%ELIE.WINDOW.COLOR%"
+	.event				= ""
+	@#My_Lock_PASSWORD_YEET create/
+end/ window
+
+
+textblock/ to_link
+	.Handle = "%My_Lock_PASSWORD_YEET%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Current password:"
+	.PX = "2"
+	.PY = "8"
+	.textcolor = "233,233,233"
+	create/
+end/ textblock
+
+textblock/ to_link
+	.Handle = "%My_Lock_PASSWORD_YEET%"
+	.parameters = "COL:0, BORD:0"
+	.text = "New password:"
+	.PX = "2"
+	.PY = "45"
+	.textcolor = "233,233,233"
+	create/
+end/ textblock
+
+set/ CURRENT_USER_PASSWORD = \#NULL
+
+Textbox/ your_actual_password_son
+	.handle			= "%My_Lock_PASSWORD_YEET%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1 BORD:1"
+    .PX             = "15"
+    .PY             = "25"
+	.SX				= "200"
+	.SY				= "15"
+	.BackColor	= "068,068,068"
+	.TextColor	= "211,211,211"
+    .text          = "%CURRENT_USER_PASSWORD%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+set/ NEW_USER_PASSWORD = \#NULL
+
+Textbox/ your_new_password_son
+	.handle			= "%My_Lock_PASSWORD_YEET%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1 BORD:1"
+    .PX             = "15"
+    .PY             = "60"
+	.SX				= "200"
+	.SY				= "15"
+	.BackColor	= "068,068,068"
+	.TextColor	= "211,211,211"
+    .text          = "%NEW_USER_PASSWORD%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+
+// sys/ /debug = 2
+
+button/ btn_change
+	.handle				= "%My_Lock_PASSWORD_YEET%"
+	.px					= "15"
+	.py					= "95"
+	.sx					= "130"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "214,214,214"
+	.text				= "Change Password"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.event				= "%_exe_path_%=MouseClick"
+	create/
+end/ button
+
+
+function/ btn_change.Click()
+
+
+   textbox/ /modif:your_actual_password_son
+       @#CHECK_THIS_BAKA .text
+   end/ textbox
+
+
+
+   @#AH_SHIT_HERE_WE_GO_AGAIN OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/PASSW.ESF
+
+   if/ "%CHECK_THIS_BAKA%" == "%AH_SHIT_HERE_WE_GO_AGAIN%" then:
+        textbox/ /modif:your_new_password_son
+              @#GO_WITH_THIS_BAKA .text
+        end/ textbox          
+   write/ /bin OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/PASSW.ESF = %GO_WITH_THIS_BAKA%
+
+   else:
+      if/ "%CHECK_THIS_BAKA%" != "%AH_SHIT_HERE_WE_GO_AGAIN%" then:
+      /F:ELIE.MSGBOX(ElieOS,WRONG PASSWORD!,3)
+      end/ if
+   end/ if
+end/ function
+
+
+
+
+

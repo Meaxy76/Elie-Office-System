@@ -1,0 +1,14 @@
+
+
+
+     exe/ &+ %HOST_OS%/SYSIV/ELIE32/DESKTOP/ELIEGUI/DESKICON.CPC
+   //  exe/ &+ %HOST_OS%/SYSIV/ELIE32/DESKTOP/ELIEGUI/INITHDD.APP
+    txt/ ok
+	
+    exe/ & %HOST_OS%/SYSIV/ELIE32/DESKTOP/AURAGUI/DOCK.CPC
+
+
+refresh/ /all
+
+
+

@@ -1,0 +1,21 @@
+
+
+SET/ TASKPOSY = /C(%CPC.SCR.Y% - 25)
+
+
+
+window/ taskbar
+	.title 			= "Dock"
+	.px				        = "0"
+	.py				        = "%TASKPOSY%"
+	.sx				= "%CPC.SCR.X%"
+	.sy				= "25"
+    .Opacity 		= "0"
+	.Parameters		= "TYPE:4 CTN:1 BORD:0 SHADOW:0 BLURRY:6 TASKBAR:1"
+	.BackColor  	= "051,051,051"
+	.event			= ""
+	@#taskbar_nice create/
+end/ window
+
+
+

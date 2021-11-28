@@ -1,0 +1,12 @@
+
+ccp/ /set.level = 4
+
+set/ pos_x = 0
+set/ pos_y = 30
+set/ size_x = %CPC.SCR.X%
+set/ size_y = /C(%CPC.SCR.Y% - 68)
+
+set/ handle_desktop = /F:Init_Elie_Desktop(MyDesktop, %pos_x%, %pos_y%, %size_X%, %size_Y%)
+
+
+

@@ -1,0 +1,137 @@
+// Explorer GUI program test
+
+
+set/ actual_path = C:\CPCDOS\OS
+
+
+ccp/ /set.level = 1
+
+
+
+// ===== Build window =====
+Window/ file_explorer_window
+
+        .title          = "Elie Explorer"
+        .parameters     = "TYPE:0 SIZ:1 SIZBTN:1 BLURRY:6 CTX:2"
+        .px             = "50"
+        .py             = "100"
+        .sx             = "500"
+        .sy             = "300"
+	.Opacity 	= "200"
+        .WindowColor    = "100,100,100"
+        .backcolor      = "%ELIE.WINDOW.COLOR%"
+        .events         = "%_exe_path_%"
+        .icon           = "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/folder.png"
+        @#window_handle create/
+End/ Window
+
+ccp/ /set.level = 3
+
+set/ file_explorer_window.ctx_text[0] = About Elie Explorer
+set/ file_explorer_window.ctx_action[0] = exe/ & %HOST_OS%/SYSIV/PROG_X86/explorer/about.CPC
+
+set/ file_explorer_window.ctx_text[1] = Exit
+set/ file_explorer_window.ctx_action[1] = close/ file_explorer_window
+
+set/ file_explorer_window.ctx_number = 2
+
+ccp/ /set.level = 1
+
+
+// %actual_path%
+Textbox/ txt_path
+        .Handle         = "%window_handle%"
+        .Parameters     = "BORD:1 COL:1"
+        .Text           = "OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/MySpace"
+        .PX             = "1"
+        .PY             = "2"
+        .BackColor      = "110,110,110"
+        .TextColor      = "250,250,250"
+        .sx             = "498"
+        .sy             = "18"
+        .events         = "%_exe_path_%=KeyEnter"
+        create/
+End/ Textbox
+
+
+ 
+explorer/ explore_gui
+        .handle         = "%window_handle%"
+        .parameters     = "EXPLOREMODE:2"
+        .px             = "0"
+        .py             = "23"
+        .sx             = "500"
+        .sy             = "279"
+        .opacity        = "255"
+        .textcolor      = "250,250,250"
+        .backcolor      = "100,100,100"
+        .text           = "OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/MySpace"
+        .events         = "%_exe_path_%"
+        create/
+End/ explorer
+
+// ===== GUI events =====
+
+Function/ explore_gui.MouseClick()
+        // Update textbox path
+
+        // Get path text
+        explorer/ /modif:explore_gui
+                @#new_path .text
+        end/ explorer
+
+        // Modify path text in the textbox
+        textbox/ /modif:txt_path
+		.text = "%new_path%"
+		create/
+	end/ textbox
+End/ Function
+
+
+Function/ txt_path.KeyEnter(texte)
+        // Valid and display wrote path from textbox
+        
+        // Stay in level 1, because for read variable %texte%, this is in level 1
+        ccp/ /set.level = 1
+
+        // Modify explorer path
+	explorer/ /modif:explore_gui
+		.text = "%texte%"
+		create/
+	end/ explorer
+
+End/ Function
+
+
+
+Function/ file_explorer_window.Resize(sizeup)
+	// If user change window size
+
+	// Getting window size informations
+	window/ /modif:file_explorer_window
+		@#Win_Size_X .sx
+		@#Win_Size_Y .sy
+	end/ window
+	
+        // According textbox size
+        set/ Win_Size_Y = /C(%Win_Size_Y% - 23)
+
+        // And modify explorer object size
+	explorer/ /modif:explore_gui
+		.sx     = "%Win_Size_X%"
+		.sy     = "%Win_Size_Y%"
+		create/
+	end/ explorer
+
+        SET/ LONGINUS_X = /C(%Win_Size_X% - 1)
+
+        textbox/ /modif:txt_path
+             .sx "%LONGINUS_X%"
+             create/
+        end/ textbox
+
+End/ function
+
+
+
+

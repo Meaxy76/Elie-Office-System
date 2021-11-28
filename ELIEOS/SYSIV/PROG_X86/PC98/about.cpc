@@ -1,0 +1,63 @@
+
+
+Window/ calc_elie_about
+        .title = "About PC-98/DOS"
+        .parameters = "TYPE:0 SIZBTN:0 BLURRY:6"
+        .backcolor = "%ELIE.WINDOW.COLOR%"
+        .WindowColor	= "051,051,051"
+	    .Opacity 		= "200"
+	.icon       = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/info.png"
+        .SX = "260"
+        .SY = "60"
+        .px = "300"
+        .py = "200"
+        @#PROG_CALC_ABOUT create/
+end/ Window
+
+
+
+
+
+
+Textblock/ Mon_Textebloc
+	.Handle			= "%PROG_CALC_ABOUT%"
+	.Parameters		= "BORD:0 COL:0"
+	.Text 			= "PC-98/DOS version 2.0.8"
+	.PX				= "60"
+	.PY				= "15"
+	.TextColor	= "248,248,248"
+	rem/ .tx				= "100"
+	rem/ .ty				= "20"
+	.events			""
+	create/
+end/ Textblock
+
+
+Textblock/ Mon_Textebloc2
+	.Handle			= "%PROG_CALC_ABOUT%"
+	.Parameters		= "BORD:0 COL:0"
+	.Text 			= "Made by Meaxy Kusama"
+	.PX				= "60"
+	.PY				= "25"
+	.TextColor	= "248,248,248"
+	rem/ .tx				= "100"
+	rem/ .ty				= "20"
+	.events			""
+	create/
+end/ Textblock
+
+
+
+
+picturebox/ calc
+	.Handle			= "%PROG_CALC_ABOUT%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "5"
+	.PY			= "5"
+	.sx			= "50"
+	.sy		        = "50"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98.png"
+	rem/.opacity		= "100"
+	// .event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox

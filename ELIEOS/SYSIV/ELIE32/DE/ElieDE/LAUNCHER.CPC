@@ -1,0 +1,100 @@
+
+SET/ POSY = /C(%CPC.SCR.Y% - 88)
+SET/ Dock_POSX = /C(%CPC.SCR.X% - 360 )
+
+
+window/ dockelie
+	.title 			= "Dock"
+	.px				        = "%Dock_POSX%"
+	.py				        = "%POSY%"
+	.sx				= "360"
+	.sy				= "68"
+    .Opacity 		= "0"
+	.Parameters		= "TYPE:4 CTN:1 BORD:0 OMBRE:0 BLURRY:6 TASKBARHIDE:1"
+	.BackColor  	= "051,051,051"
+	.event			= ""
+	@#DOCK_OS create/
+end/ window
+
+
+picturebox/ menu_btn
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "300"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/menu.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+
+function/ menu_btn.Click()
+
+ exe/ & OS/ELIEOS/SYSIV/PROG_X86/DIRXT/DIRXT.CPC
+
+end/ function
+
+
+
+
+
+picturebox/ elieexplorer
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "243"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/folder.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+function/ eliexplorer.Click()
+    exe/ & %HOST_OS%/SYSIV/PROG_X86/EXPLORER/EXPLORER.CPC
+end/ function
+
+
+
+picturebox/ efu_prog
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "186"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/efu.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+function/ efu_prog.Click()
+	exe/ & %HOST_OS%/SYSIV/PROG_X86/EFU/EFU.CPC
+end/ function
+
+
+
+picturebox/ settings
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "129"
+	.PY			= "13"
+	.sx			= "42"
+	.sy		        = "42"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/setting.png"
+	.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+function/ settings.Click()
+	sys/ /debug = 2
+ exe/ & OS/ELIEOS/SYSIV/PROG_X86/DIRXT/SETTS.CPC
+
+end/ function
+
+
+
+

@@ -1,0 +1,783 @@
+
+
+rem/EMIKO 1.1
+rem/BUILD IN NEW ElieGE (c) 2020 Meaxy    //
+rem/ Rewriting of the code
+ccp/ /optimization = 1
+
+window/ emiko
+	.titre 		= "Emiko"
+	.px		= "100"
+	.py 		= "100"
+	.SX 		= "609"
+	.SY             = "485"
+	.parameters 	= "TYPE:0 SIZBTN:0 BLURRY:6 CTX:2"
+	.backcolor	= "245,238,205"
+    .icon        = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/emiko.png"
+	.event = ""
+	@#emiko_game create/
+end/ window
+
+
+ccp/ /set.level = 3
+
+set/ emiko.ctx_text(0) = About Emiko
+set/ emiko.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/emiko/about.CPC
+
+set/ emiko.ctx_text(1) = Exit
+set/ emiko.ctx_action(1) = close/ emiko
+
+set/ emiko.ctx_number = 2
+
+ccp/ /set.level = 2
+
+textblock/ nom
+	.Handle = "%emiko_game%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Emiko:"
+	.PX = "10"
+	.PY = "347"
+	.textcolor = "000,000,000"
+	create/
+end/ textblock
+
+set/ SAVE_BLABLA = \#NULL
+
+textblock/ textsaveinfo
+	.Handle = "%emiko_game%"
+	.parameters = "COL:0, BORD:0"
+	.text = "%SAVE_BLABLA%"
+	.PX = "115"
+	.PY = "447"
+	.textcolor = "000,000,000"
+	create/
+end/ textblock
+
+textblock/ Faim
+	.Handle = "%emiko_game%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Hunger:"
+	.PX = "335"
+	.PY = "345"
+	.textcolor = "000,000,000"
+	create/
+end/ textblock
+
+textblock/ eau
+	.Handle = "%emiko_game%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Water:"
+	.PX = "335"
+	.PY = "368"
+	.textcolor = "000,000,000"
+	create/
+end/ textblock
+
+textblock/ plaisir
+	.Handle = "%emiko_game%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Fun:"
+	.PX = "335"
+	.PY = "391"
+	.textcolor = "000,000,000"
+	create/
+end/ textblock
+
+textblock/ fatigue
+	.Handle = "%emiko_game%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Tired:"
+	.PX = "335"
+	.PY = "414"
+	.textcolor = "000,000,000"
+	create/
+end/ textblock
+
+
+picturebox/ emiko_char
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "0"
+	.PY			= "0"
+	.SX			= "609"
+	.SY		        = "343"
+	.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/happidle.png"
+	rem/ .opacity		= "150"
+	rem/.event			= ""
+	create/
+end/ Picturebox
+
+
+REM/ button ET function 
+button/ food
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "370"
+	.SX				= "60"
+	.SY				= "60"
+	rem/ .opacity		= "100"
+	.text			= ""
+	.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/food.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+function/ food.Click()
+
+               ProgressBar/ /MODIF:foodbar
+                             @#mium .value
+                             create/
+               end/ ProgressBar
+
+if/ "%mium%" < "100" then:
+
+                Picturebox/ /modif:emiko_char
+			.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/eat.png"
+			create/
+		end/ Picturebox
+                 
+                textblock/ /modif:nom
+                         .text = "Emiko: Miam miam! Thanks "
+                         create/
+                end/ textblock
+				
+				 ProgressBar/ /MODIF:foodbar
+                             @#mium .value
+                             set/ mium = /C(%mium% + 5)
+                             .value = "%mium%"
+                             .text = "%mium%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             set/ prog = /C(%prog% - 5)
+                             .value = "%prog%"
+                             .text = "%prog%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:sleepbar
+                             @#zzzz .value
+                             set/ zzzz = /C(%zzzz% - 10)
+                             .value = "%zzzz%"
+                             .text = "%zzzz%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:amusebar
+                             @#fun .value
+                             set/ fun = /C(%fun% - 10)
+                             .value = "%fun%"
+                             .text = "%fun%"
+                             create/
+               end/ ProgressBar
+			   
+			   refresh/ nom
+			   refresh/ emiko
+else:
+			   if/ "%mium%" > "100" then:
+			   
+			   textblock/ /modif:nom
+                         .text = "Emiko: Je n'ai plus faim !"
+                         create/
+                end/ textblock
+				
+               ProgressBar/ /MODIF:foodbar
+                             @#mium .value
+                             set/ mium = /C(%mium% + 0)
+                             .value = "%mium%"
+                             .text = "%mium%"
+                             create/
+               end/ ProgressBar
+			   
+			   
+				
+				ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             set/ prog = /C(%prog% + 0)
+                             .value = "%prog%"
+                             .text = "%prog%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:sleepbar
+                             @#zzzz .value
+                             set/ zzzz = /C(%zzzz% + 0)
+                             .value = "%zzzz%"
+                             .text = "%zzzz%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:amusebar
+                             @#fun .value
+                             set/ fun = /C(%fun% + 0)
+                             .value = "%fun%"
+                             .text = "%fun%"
+                             create/
+               end/ ProgressBar
+				
+				else:
+				     if/ "%mium%" == "100" then:
+					 textblock/ /modif:nom
+                         .text = "Emiko: I'm not hungry anymore!"
+                         create/
+                end/ textblock
+				end/ if
+				
+               end/ if
+end/ if
+				
+CCP/ /PAUSE 500
+                textblock/ /modif:nom
+                         .text = "Emiko:"
+                         create/
+                end/ textblock
+                refresh/ nom
+                refresh/ emiko
+				goto/ IDLE_VERIFICATION
+end/ function
+
+
+
+button/ water
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "80"
+	.PY				= "370"
+	.SX				= "60"
+	.SY				= "60"
+	rem/ .opacity		= "100"
+	.text			= ""
+	.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/water.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ water.Click()
+ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             create/
+               end/ ProgressBar
+
+if/ "%prog%" < "100" then:
+
+
+                Picturebox/ /modif:emiko_char
+			.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/drink.png"
+			create/
+		end/ Picturebox
+
+                textblock/ /modif:nom
+                         .text = "Emiko: gloup gloup! Thanks !!!"
+                         create/
+                end/ textblock
+
+               ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             set/ prog = /C(%prog% + 5)
+                             .value = "%prog%"
+                             .text = "%prog%"
+                             create/
+               end/ ProgressBar
+			   
+else:
+
+               
+if/ "%prog%" > "100" then:
+				
+               ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             set/ prog = /C(%prog% + 0)
+                             .value = "%prog%"
+                             .text = "%prog%"
+                             create/
+               end/ ProgressBar
+			   else:
+			   if/ "%prog%" == "100" then:
+			   textblock/ /modif:nom
+                         .text = "Emiko: I'm not thirsty anymore !"
+                         create/
+                end/ textblock
+				end/ if
+			  end/ if
+end/ if
+
+    CCP/ /Pause 600
+
+		
+
+                textblock/ /modif:nom
+                         .text = "Emiko:"
+                         create/
+                end/ textblock
+                refresh/ nom
+                refresh/ emiko
+                goto/ IDLE_VERIFICATION
+
+
+end/ function
+
+button/ play
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "150"
+	.PY				= "370"
+	.SX				= "60"
+	.SY				= "60"
+	rem/ .opacity		= "100"
+	.text			= ""
+	.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/play.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+function/ play.Click()
+
+          
+				
+				///////////////////////////
+				
+		ProgressBar/ /MODIF:amusebar
+                             @#fun .value
+                             create/
+               end/ ProgressBar
+
+if/ "%fun%" < "100" then:
+
+                Picturebox/ /modif:emiko_char
+			.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/play0.png"
+			create/
+		end/ Picturebox
+
+                textblock/ /modif:nom
+                         .text = "Emiko: Yeah! I'm having a lot of fun!"
+                         create/
+                end/ textblock
+				
+				 ProgressBar/ /MODIF:foodbar
+                             @#mium .value
+                             set/ mium = /C(%mium% - 10)
+                             .value = "%mium%"
+                             .text = "%mium%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             set/ prog = /C(%prog% - 15)
+                             .value = "%prog%"
+                             .text = "%prog%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:sleepbar
+                             @#zzzz .value
+                             set/ zzzz = /C(%zzzz% - 10)
+                             .value = "%zzzz%"
+                             .text = "%zzzz%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:amusebar
+                             @#fun .value
+                             set/ fun = /C(%fun% + 10)
+                             .value = "%fun%"
+                             .text = "%fun%"
+                             create/
+               end/ ProgressBar
+			   
+			   refresh/ nom
+			   refresh/ emiko
+else:
+			   if/ "%fun%" > "100" then:
+				
+               ProgressBar/ /MODIF:foodbar
+                             @#mium .value
+                             set/ mium = /C(%mium% + 0)
+                             .value = "%mium%"
+                             .text = "%mium%"
+                             create/
+               end/ ProgressBar
+			   
+			   else:
+			   if/ "%fun%" == "100" then:
+				textblock/ /modif:nom
+                         .text = "Emiko: I don't want to play anymore !"
+                         create/
+                end/ textblock
+				end/ if
+				
+               end/ if
+end/ if
+
+    CCP/ /Pause 600
+
+                textblock/ /modif:nom
+                         .text = "Emiko:"
+                         create/
+                end/ textblock
+                refresh/ nom
+                refresh/ emiko
+                goto/ IDLE_VERIFICATION
+end/ function
+
+button/ sleep
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "220"
+	.PY				= "370"
+	.SX				= "60"
+	.SY				= "60"
+	rem/ .opacity		= "100"
+	.text			= ""
+	.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/sleep.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+function/ sleep.Click()
+ProgressBar/ /MODIF:sleepbar
+                             @#zzzz .value
+                             create/
+               end/ ProgressBar
+
+if/ "%zzzz%" < "100" then:
+
+         Picturebox/ /modif:emiko_char
+			.Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/sleeping.png"
+			create/
+		end/ Picturebox
+         
+
+                textblock/ /modif:nom
+                         .text = "Emiko: ZZZ... ZZZ..."
+                         create/
+                end/ textblock
+				
+				ProgressBar/ /MODIF:sleepbar
+                             @#zzzz .value
+                             set/ zzzz = /C(%zzzz% + 10)
+                             .value = "%zzzz%"
+                             .text = "%zzzz%"
+                             create/
+               end/ ProgressBar
+				
+				 ProgressBar/ /MODIF:foodbar
+                             @#mium .value
+                             set/ mium = /C(%mium% - 15)
+                             .value = "%mium%"
+                             .text = "%mium%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             set/ prog = /C(%prog% - 15)
+                             .value = "%prog%"
+                             .text = "%prog%"
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:amusebar
+                             @#fun .value
+                             set/ fun = /C(%fun% - 10)
+                             .value = "%fun%"
+                             .text = "%fun%"
+                             create/
+               end/ ProgressBar
+			   
+			   refresh/ nom
+			   refresh/ emiko
+else:
+			   if/ "%zzzz%" > "100" then:
+				
+				ProgressBar/ /MODIF:sleepbar
+                             @#zzzz .value
+                             set/ zzzz = /C(%zzzz%  + 0)
+                             .value = "%zzzz%"
+                             .text = "%zzzz%"
+                             create/
+               end/ ProgressBar
+				else: 
+				    if/ "%zzzz%" == "100" then:
+                    textblock/ /modif:nom
+                         .text = "Emiko: I don't want to sleep anymore !"
+                         create/
+                    end/ textblock
+					end/ if
+               end/ if
+end/ if
+
+
+    CCP/ /Pause 700
+			   
+
+                textblock/ /modif:nom
+                         .text = "Emiko:"
+                         create/
+                end/ textblock
+                refresh/ nom
+                refresh/ emiko
+
+                goto/ IDLE_VERIFICATION
+
+end/ function
+
+
+@#STATEUN open/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV1.EGS
+
+@#STATEDOS open/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV2.EGS
+@#STATETHREE open/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV3.EGS
+@#STATEFOUR open/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV4.EGS
+
+ProgressBar/ foodbar
+            .handle = "%emiko_game%"
+            .parameters = "IMGAUTO:2"
+            .text = "%STATEUN%"
+            .value = "%STATEUN%"
+            .PX = "408"
+            .PY = "343"
+            .SX = "200"
+            .SY = "21"
+            .backcolor = "200,255,240"
+            .textcolor = "000,000,000"
+            .image = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRBL.png"
+            .event = "%_EXE_PATH_%"
+             create/
+end/ ProgressBar
+
+ProgressBar/ waterbar
+            .handle = "%emiko_game%"
+            .parameters = "IMGAUTO:2"
+            .text = "%STATEDOS%"
+            .value = "%STATEDOS%"
+            .PX = "408"
+            .PY = "366"
+            .SX = "200"
+            .SY = "21"
+            .backcolor = "200,255,240"
+            .textcolor = "000,000,000"
+            .image = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRBL.png"
+            .event = "%_EXE_PATH_%"
+             create/
+end/ ProgressBar
+
+ProgressBar/ amusebar
+            .handle = "%emiko_game%"
+            .parameters = "IMGAUTO:2"
+            .text = "%STATETHREE%"
+            .value = "%STATETHREE%"
+            .PX = "408"
+            .PY = "389"
+            .SX = "200"
+            .SY = "21"
+            .backcolor = "200,255,240"
+            .textcolor = "000,000,000"
+            .image = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRBL.png"
+            .event = "%_EXE_PATH_%"
+             create/
+end/ ProgressBar
+
+ProgressBar/ sleepbar
+            .handle = "%emiko_game%"
+            .parameters = "IMGAUTO:2"
+            .text = "%STATEFOUR%"
+            .value = "%STATEFOUR%"
+            .PX = "408"
+            .PY = "412"
+            .SX = "200"
+            .SY = "21"
+            .backcolor = "200,255,240"
+            .textcolor = "000,000,000"
+            .image = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRBL.png"
+            .event = "%_EXE_PATH_%"
+             create/
+end/ ProgressBar
+
+
+
+
+button/ sauvegarde
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "15"
+	.PY				= "445"
+	.SX				= "90"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "Save"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_BLUE.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ sauvegarde.Click()
+
+
+                 ProgressBar/ /MODIF:foodbar
+                             @#mium .value
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:waterbar
+                             @#prog .value
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:sleepbar
+                             @#zzzz .value
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:amusebar
+                             @#fun .value
+                             create/
+               end/ ProgressBar
+			   
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV1.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV2.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV3.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV4.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/MASTER.EGS
+
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV1.EGS = %mium%
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV2.EGS = %prog%
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV3.EGS = %zzzz%
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV4.EGS = %fun%
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/MASTER.EGS = TRUE
+
+
+                 textblock/ /modif:textsaveinfo
+                         .text = "Sauvegarde complete"
+                         create/
+                end/ textblock
+				
+				CCP/ /PAUSE 0900
+				
+				textblock/ /modif:textsaveinfo
+                         .text = ""
+                         create/
+                end/ textblock
+				
+				refresh/ textsaveinfo
+				refresh/ emiko
+end/ function
+
+button/ reset_game
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "409"
+	.PY				= "445"
+	.SX				= "90"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "Reset"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_BLUE.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ reset_game.Click()
+
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV1.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV2.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV3.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV4.EGS
+CMD/ /THREAD SUPPRIMER/ OS/ELIEOS/SYSIV/PROG_X86/EMIKO/MASTER.EGS
+
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV1.EGS = 65
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV2.EGS = 85
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV3.EGS = 70
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/GAMESAV4.EGS = 80
+CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/EMIKO/MASTER.EGS = FALSE
+
+EXE/ & OS/ELIEOS/SYSIV/PROG_X86/EMIKO/EMIKO.CPC
+close/ emiko
+
+end/ function
+
+
+
+button/ mainmenu
+	.Handle			= "%emiko_game%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "509"
+	.PY				= "445"
+	.SX				= "90"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "Main menu"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_BLUE.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+function/ mainmenu.Click()
+TXT/ Tu quitte sans sauvegarder
+
+EXE/ & OS/ELIEOS/SYSIV/PROG_X86/EMIKO/MAIN.CPC
+close/ emiko
+
+end/ function
+
+
+:IDLE_VERIFICATION:
+ProgressBar/ /MODIF:foodbar
+                             @#UN .value
+                             create/
+               end/ ProgressBar
+			   
+				ProgressBar/ /MODIF:waterbar
+                             @#DOS .value
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:sleepbar
+                             @#THREE .value
+                             create/
+               end/ ProgressBar
+			   
+			   ProgressBar/ /MODIF:amusebar
+                             @#FOUR .value
+                             create/
+               end/ ProgressBar
+
+set/ CHECK = /C(%UN% + %DOS% + %THREE% + %FOUR%)
+
+if/ "%CHECK%" <= "190" then:
+							                   Picturebox/ /modif:emiko_char
+			                                    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/sadidle.png"
+			                                    create/
+		                                        end/ Picturebox
+else:
+							       if/ "%CHECK%" >= "190" then:
+								                Picturebox/ /modif:emiko_char
+			                                    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/happidle.png"
+			                                     create/
+		                                         end/ Picturebox 
+									else:
+							                        if/ "%CHECK%" == "0" then:
+								                Picturebox/ /modif:emiko_char
+			                                    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/EMIKO/gameover.png"
+			                                     create/
+		                                         end/ Picturebox 
+												 close/ water
+					                             close/ food
+					                             close/ play
+					                             close/ sleep
+							               end/ if
+							        end/ if
+end/ if
+
+set/ /s UN
+set/ /s DOS
+set/ /s THREE
+set/ /s FOUR
+set/ /s CHECK
+

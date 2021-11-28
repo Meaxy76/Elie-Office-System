@@ -1,0 +1,183 @@
+
+CCP/ /SET.LEVEL = 2
+
+CCP/ /OPTIMIZATION = 1
+
+@#FILENAMEDATAYES OPEN/ OS/ELIEOS/SYSIV/PROG_X86/ANIMATE/RUN.DT1
+
+@#CONFIGX OPEN/ %FILENAMEDATAYES% /LINE:1
+@#CONFIGY OPEN/ %FILENAMEDATAYES% /LINE:2
+@#NAME OPEN/ %FILENAMEDATAYES% /LINE:3
+@#STARTPOINT OPEN/ %FILENAMEDATAYES% /LINE:4
+@#ENDPOINT OPEN/ %FILENAMEDATAYES% /LINE:5
+@#LOOPPOINT OPEN/ %FILENAMEDATAYES% /LINE:6
+@#PATH_IMG OPEN/ %FILENAMEDATAYES% /LINE:7
+
+SET/ %CONFIGX%
+SET/ %CONFIGY%
+SET/ %NAME%
+SET/ %STARTPOINT%
+SET/ %ENDPOINT%
+SET/ %LOOPPOINT%
+SET/ %PATH_IMG%
+
+SET/ IMG_SIZX = /C(%SIZEX% - 1)
+
+SET/ IMG_SIZY = /C(%SIZEY% - 1)
+
+SET/ PLAY_ZONE = /C(%IMG_SIZY% + 30)
+SET/ PLAY_BUTTON = /C(%SIZEY% - 30)
+
+
+WINDOW/ MX_PAT_ANIME
+        .title              = "Animation Viewer"
+		.px			       	= "40"
+		.py			    	= "201"
+		.SX			    	= "%IMG_SIZX%"
+		.SY				    = "%PLAY_ZONE%"
+		.Parameters	    	= "TYPE:0 SIZBTN:0 BLURRY:6 CTX:2"
+		.BackColor      	= "%ELIE.WINDOW.COLOR%"
+        .events             = "%_EXE_PATH_%"
+		.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/anime.png"
+		@#anime_test create/
+END/ WINDOW
+
+ccp/ /set.level = 3
+
+set/ MX_PAT_ANIME.ctx_text(0) = About Animation viewer
+set/ MX_PAT_ANIME.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/animate/about.CPC
+
+set/ MX_PAT_ANIME.ctx_text(1) = Exit
+set/ MX_PAT_ANIME.ctx_action(1) = close/ MX_PAT_ANIME
+
+set/ MX_PAT_ANIME.ctx_number = 2
+
+ccp/ /set.level = 2
+
+SET/ ORDER = %START%
+
+
+picturebox/ test_animation_asuka
+	.Handle			= "%anime_test%"
+	.Parameters		= "IMGAUTO:2 UPD:1"
+	.PX			= "0"
+	.PY			= "0"
+	.SX			= "%IMG_SIZX%"
+	.SY		        = "%IMG_SIZY%"
+	.Image			= "%FOLDER%%FILENAME%%ORDER%.png"
+	create/
+Fin/ Picturebox
+
+refresh/ test_animation_asuka
+refresh/ MX_PAT_ANIME
+
+
+button/ play
+	.Handle			= "%anime_test%"
+	.Parameters		= "IMGAUTO:2"
+	.PX			= "0"
+	.PY			= "%IMG_SIZY%"
+	.SX			= "28"
+	.SY		        = "30"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/play.png"
+	rem/ .opacity		= "150"
+	.event			= "%_EXE_PATH_%=Click"
+	create/
+Fin/ button
+
+SET/ TXTBOX_Y = /C(%IMG_SIZY% + 5)
+SET/ TXTBOX_SIZX = /C(%IMG_SIZX% - 35)
+
+textbox/ zone_search
+	    .handle			= "%anime_test%"
+	    .parameters 	= "EDIT:1, COL:1, BORD:1"
+        .PX                             = "35"
+        .PY                             = "%TXTBOX_Y%"
+	    .sx				= "%TXTBOX_SIZX%"
+	    .sy				= "20"
+	    .BackColor	= "068,068,068"
+	    .TextColor	= "255,255,255"
+        .text          = "OS/ELIEOS/SYSIV/PROG_X86/ANIMATE/DEMO/ASUKA/CONFIG.EAC"
+	    .event			= "%_exe_path_%=KeyPress"
+        create/
+end/ textbox
+
+
+function/ play.Click()
+
+CCP/ /SET.LEVEL = 2
+     textbox/ /modif:zone_search
+	    @#SHIT_TO_PLAY .TEXT
+	 end/ textbox
+
+
+  write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/ANIMATE/RUN.DT1 = %SHIT_TO_PLAY%
+  close/ MX_PAT_ANIME
+  exe/ & OS/ELIEOS/SYSIV/PROG_X86/ANIMATE/ANIME.CPC
+
+
+end/ function
+
+Function/ MX_PAT_ANIME.Resize(up)
+        // [FR] Recuperer la taile X et Y de la fenetre
+        // [EN] Getting X, Y window size
+        window/ /modif:MX_PAT_ANIME
+                @#Size_X .sx
+                @#Size_Y .sy
+        end/ window
+
+        SET/ Size_Y = /C(%Size_Y% - 31)
+        // [FR] Et y modifier dans le textbox
+        // [EN] And modify on textbox
+        picturebox/ /modif:test_animation_asuka
+	            .Parameters		= "IMGAUTO:2 UPD:1"
+                .sx = "%Size_X%"
+                .sy = "%Size_Y%"
+                create/
+        end/ picturebox
+		
+		SET/ PLAY_BUTTON_Y = /C(%Size_Y% - 30)
+		
+		button/ /modif:play
+                .py = "%Size_Y%"
+                create/
+        end/ button
+        refresh/ play
+
+End/ function
+
+
+:ANIME:
+
+ccp/ /pause 75
+
+SET/ ORDER = /C(%ORDER% + 1)
+
+IF/ "%ORDER%" == "%FINISH%" THEN:
+FIX/ NUMBER = 0
+SET/ LOOP = /C(%LOOP% - 1)
+END/ IF
+
+picturebox/ /MODIF:test_animation_asuka
+ .image = "%FOLDER%%FILENAME%%ORDER%.png"
+ create/
+end/ picturebox
+
+
+IF/ "%LOOP%" == "0" THEN:
+SET/ i = 0
+GOTO/ END
+END/ IF
+
+refresh/ test_animation_asuka
+refresh/ MX_PAT_ANIME
+
+goto/ ANIME
+
+
+
+:END:
+
+
+
+

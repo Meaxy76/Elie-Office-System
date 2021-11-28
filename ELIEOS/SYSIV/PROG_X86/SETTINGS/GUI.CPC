@@ -1,0 +1,18 @@
+
+
+
+window/ affichage
+	.title 			= "GUI desktop setting"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "400"
+	.SY = "400"
+	// .opacity 	= "100"
+	.parameters 	= "TYPE:0 SIZBTN:0"
+	.BackColor	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/basic.png"
+	.event = ""
+	@#screen_os create/
+end/ window
+
+

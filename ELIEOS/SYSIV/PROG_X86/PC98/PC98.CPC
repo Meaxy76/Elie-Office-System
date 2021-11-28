@@ -1,0 +1,205 @@
+
+
+
+
+window/ pc98_emu
+	.title				= "PC-98/DOS"
+	.px					= "50"
+	.py					= "60"
+	.sx					= "600"
+	.sy					= "490"
+	.opacity			= "255"
+	.parameters			= "TYPE:0 BLURRY:6 CTX:2"
+	.backcolor		    = "%ELIE.WINDOW.COLOR%"
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98.png"
+	.event				= ""
+	@#dos_emu create/
+end/ window
+
+ccp/ /set.level = 3
+
+set/ pc98_emu.ctx_text(0) = About PC-98/DOS
+set/ pc98_emu.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/pc98/about.CPC
+
+set/ pc98_emu.ctx_text(1) = Exit
+set/ pc98_emu.ctx_action(1) = close/ pc98_emu
+
+set/ pc98_emu.ctx_number = 2
+
+ccp/ /set.level = 2
+
+picturebox/ header_pc98
+	.Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "0"
+	.sx				= "595"
+	.sy				= "130"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98/header.png"
+	create/
+end/ picturebox
+
+
+///
+
+button/ touhoufst
+    .Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "130"
+	.sx				= "240"
+	.sy				= "72"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98/th01.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Button
+
+
+function/ touhoufst.Click()
+
+ /F:PC98_PROGRAM_LOADER(OS/ELIEOS/SYSIV/PROG_X86/PC98/TOUHOU/TOUHOU1.E98)
+
+end/ function
+
+///
+
+Button/ touhousnd
+	.Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "202"
+	.sx				= "240"
+	.sy				= "72"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98/th02.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Button
+
+function/ touhousnd.Click()
+
+ /F:PC98_PROGRAM_LOADER(OS/ELIEOS/SYSIV/PROG_X86/PC98/TOUHOU/TOUHOU2.E98)
+
+end/ function
+
+///
+
+
+button/ touhoutr
+	.Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "274"
+	.sx				= "240"
+	.sy				= "72"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98/th03.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ touhoutr.Click()
+
+ /F:PC98_PROGRAM_LOADER(OS/ELIEOS/SYSIV/PROG_X86/PC98/TOUHOU/TOUHOU3.E98)
+
+end/ function
+
+
+
+Button/ touhouqtr
+	.Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "346"
+	.sx				= "240"
+	.sy				= "72"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98/th04.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Button
+
+function/ touhouqtr.Click()
+
+ /F:PC98_PROGRAM_LOADER(OS/ELIEOS/SYSIV/PROG_X86/PC98/TOUHOU/TOUHOU4.E98)
+
+end/ function
+
+
+Button/ touhoucnq
+	.Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "418"
+	.sx				= "240"
+	.sy				= "72"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/PC98/th05.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Button
+
+function/ touhoucnq.Click()
+
+ /F:PC98_PROGRAM_LOADER(OS/ELIEOS/SYSIV/PROG_X86/PC98/TOUHOU/TOUHOU5.E98)
+
+end/ function
+
+@#PCPATH OPEN/ OS/ELIEOS/SYSIV/PROG_X86/PC98/PATH.ECF
+
+explorer/ explore_pc
+        .handle         = "%dos_emu%"
+        .parameters     = "EXPLOREMODE:2"
+        .px             = "240"
+        .py             = "130"
+        .sx             = "360"
+        .sy             = "278"
+        .opacity        = "255"
+        .textcolor      = "250,250,250"
+        .backcolor      = "100,100,100"
+        .text           = "%PCPATH%"
+        .events         = "%_exe_path_%"
+        create/
+End/ explorer
+
+
+
+picturebox/ ldr_editor
+	.Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "240"
+	.PY				= "418"
+	.sx				= "32"
+	.sy				= "32"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/elienote.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ picturebox
+
+
+function/ ldr_editor.Click()
+
+exe/ & OS/ELIEOS/SYSIV/PROG_X86/PC98/EDITOR.CPC
+
+end/ function
+
+
+picturebox/ settings
+	.Handle			= "%dos_emu%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "240"
+	.PY				= "455"
+	.sx				= "32"
+	.sy				= "32"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/setting.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ picturebox
+
+function/ settings.Click()
+
+exe/ & OS/ELIEOS/SYSIV/PROG_X86/PC98/PATH.CPC
+
+end/ function
+
+
+
+
+
+

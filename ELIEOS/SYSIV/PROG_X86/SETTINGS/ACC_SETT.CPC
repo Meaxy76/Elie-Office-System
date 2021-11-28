@@ -1,0 +1,158 @@
+
+
+
+CCP/ /SET.LEVEL = 2
+
+
+window/ user_sett
+	.title				= "User Account Settings"
+	.px					= "50"
+	.py					= "60"
+	.sx					= "600"
+	.sy					= "120"
+	.opacity			= "255"
+	.parameters			= "TYPE:0"
+	.backcolor		    = "%ELIE.WINDOW.COLOR%"
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/user.png"
+	.event				= ""
+	@#acc_setting create/
+end/ window
+
+
+@#AVATAR open/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/avatar.ecf
+
+@#LOCKDATA OPEN/ OS/ELIEOS/SYSIV/USERXT/STATE.ESL
+@#FST OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/INFO.ECF /LINE:1
+@#SND OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/INFO.ECF /LINE:2
+
+picturebox/ logologin
+	.Handle			= "%acc_setting%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "490"
+	.PY				= "10"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "%AVATAR%"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+TEXTBLOCK/ firstname
+	.Handle        = "%acc_setting%"
+	.PARAMETERS    = "COL:0, BORD:0"
+	.TEXT          = "Username: %ACTIVE_USER%"
+	.PX            = "15"
+	.PY            = "15"
+	.SX = "250"
+	.SY = "10"
+	.TEXTCOLOR     = "209,209,209"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ firstname
+	.Handle        = "%acc_setting%"
+	.PARAMETERS    = "COL:0, BORD:0"
+	.TEXT          = "Type: Admin"
+	.PX            = "15"
+	.PY            = "25"
+	.SX = "250"
+	.SY = "12"
+	.TEXTCOLOR     = "209,209,209"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ firstname
+	.Handle        = "%acc_setting%"
+	.PARAMETERS    = "COL:0, BORD:0"
+	.TEXT          = "Firstname: %FST%"
+	.PX            = "15"
+	.PY            = "37"
+	.SX = "250"
+	.SY = "12"
+	.TEXTCOLOR     = "209,209,209"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ firstname
+	.Handle        = "%acc_setting%"
+	.PARAMETERS    = "COL:0, BORD:0"
+	.TEXT          = "Lastname: %SND%"
+	.PX            = "15"
+	.PY            = "47"
+	.SX = "250"
+	.SY = "10"
+	.TEXTCOLOR     = "209,209,209"
+	CREATE/
+END/ TEXTBLOCK
+
+
+button/ btn_connection
+	.handle				= "%acc_setting%"
+	.px					= "15"
+	.py					= "95"
+	.sx					= "130"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "214,214,214"
+	.text				= "Change Password"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.event				= "%_exe_path_%=MouseClick"
+	create/
+end/ button
+
+
+function/ btn_connection.Click()
+   close/ user_sett
+   exe/ & OS/ELIEOS/SYSIV/PROG_X86/SETTING/ACCUTIL.CPC
+end/ function
+
+
+Checkbox/ THAT_DAMN_THING
+     .handle = "%acc_setting%"
+     .PX = "15"
+     .PY = "65"
+     .Sx = "100"
+     .Sy = "20"
+     .BackColor = "255,255,240"
+     .TextColor = "255,255,255"
+     .Value = "%LOCKDATA%" 
+     .text = "Log in automatically?"
+	 .event = "%_EXE_PATH_%=Click"
+     create/
+End/ Checkbox
+
+
+FUNCTION/ THAT_DAMN_THING.Click()
+    CHECKBOX/ /MODIF:THAT_DAMN_THING
+	     @#CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH .Value
+    END/ CHECKBOX
+
+
+	IF/ "%CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH%" == "0" then:
+	    SET/ CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH = 1
+	ELSE:
+	    IF/ "%CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH%" == "1" then:
+	         SET/ CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH = 0
+		END/ IF
+
+	END/ IF
+	      
+
+	IF/ "%CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH%" == "1" then:
+              write/ /bin OS/ELIEOS/SYSIV/USERXT/STATE.ESL = 1
+	ELSE:
+	    IF/ "%CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH%" == "0" then:
+	          write/ /bin OS/ELIEOS/SYSIV/USERXT/STATE.ESL = 0
+		END/ IF
+	END/ IF
+
+END/ FUNCTION
+
+
+FUNCTION/ logologin.Click()
+     exe/ OS/ELIEOS/SYSIV/PROG_X86/SETTING/AVATAR.CPC
+END/ FUNCTION
+
+
+

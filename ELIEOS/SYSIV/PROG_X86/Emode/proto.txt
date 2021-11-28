@@ -1,0 +1,14 @@
+a la connexion du soft ElieOS envoie des donnee au serveur database pour verifier si l'utilisateur est inscrit au systeme
+si l'utilisateur nes pas inscrit alors creer une variable d'erreur 2 si l'utilisateur essaye de demarrer le programme sans etre inscrit 
+ou sans reseau
+EM_ERR_08 = Network not avaible
+EM_ERR_02 = This user is not subscribed
+dans le cas contraire fixer une variable niveau 4
+SET/ USER_AUTHENTIFICATION_SERVER = AUTHENTIFIED
+
+Programme inclu dans le service
+
+ElieMail
+Browsing/ElieWeb
+LoIRC
+OS updater 

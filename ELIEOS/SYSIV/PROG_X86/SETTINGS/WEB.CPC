@@ -1,0 +1,67 @@
+
+window/ mxdos
+	.title 			= "Web service setting"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "390"
+	.SY = "100"
+	// .opacity 	= "100"
+	.parameters 	= "TYPE:0 SIZBTN:0"
+	.BackColor  	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/web.png"
+	.event          = ""
+	@#dos_sys create/
+end/ window
+
+TEXTBLOCK/ id_cpu
+	.Handle = "%dos_sys%"
+	.parameters = "COL:0, BORD:0"
+	.TEXT = "Do you want to activate web services?"
+	.PX = "20"
+	.PY = "3"
+	.textcolor = "255,255,255"
+	create/
+end/ TEXTBLOCK
+
+Button/ btn_yes
+	.Handle			= "%dos_sys%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "15"
+	.PY				= "25"
+	.SX				= "75"
+	.SY				= "40"
+	rem/ .opacity		= "100"
+	.text			= "Activate"
+	.textcolor = "255,255,255"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Button
+
+Button/ btn_no
+	.Handle			= "%dos_sys%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "110"
+	.PY				= "25"
+	.SX				= "85"
+	.SY				= "40"
+	rem/ .opacity		= "100"
+	.text			= "Deactivate"
+	.textcolor = "255,255,255"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Button
+
+
+function/ btn_yes.click()
+   CMD/ /THREAD delete/ DRIVERS/DOS/WEB.BAT
+   CMD/ /THREAD write/ /BIN DRIVERS/DOS/WEB.BAT = C:\CPCDOS\DRIVERS\DOS\NETINST.BAT %CPC.CRLF%C:\CPCDOS\DRIVERS\DOS\EXEC.BAT
+    /F:ELIE.MSGBOX(Please restart to apply,ElieOS,1,0)
+end/ function
+
+function/ btn_no.click()
+   CMD/ /THREAD delete/ DRIVERS/DOS/WEB.BAT
+CMD/ /THREAD write/ /BIN DRIVERS/DOS/WEB.BAT = C:\CPCDOS\DRIVERS\DOS\EXEC.BAT
+ /F:ELIE.MSGBOX(Please restart to apply,ElieOS,1,0)
+end/ function

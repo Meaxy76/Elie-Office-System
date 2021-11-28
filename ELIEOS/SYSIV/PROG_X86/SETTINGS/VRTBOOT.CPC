@@ -1,0 +1,70 @@
+rem/Boot elieos in ram at the startup
+
+
+fenetre/ boot_utility
+	.titre 			= "Elie File Utility"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "650"
+	.SY = "260"
+	// .opacity 	= "100"
+	.parametres 	= "TYPE:0 SIZBTN:0"
+	.CouleurFond	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/elieboot.png"
+	.event = ""
+	@#elie_boot creer/
+end/ fenetre
+
+
+Bouton/ activatenontwk
+	.Handle			= "%elie_boot%"
+	.Parametres		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "10"
+	.SX				= "100"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.texte			= "Activate"
+	.Image			= "OS/ELIEOS/SYSTEM4/ADVANCE/BUTTONS/BTN_BLUE.png"
+	.event			= "%_exe_path_%=Click"
+	creer/
+end/ Bouton
+
+
+Bouton/ deactivatenontwk
+	.Handle			= "%elie_boot%"
+	.Parametres		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "50"
+	.SX				= "100"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.texte			= "Deactivate"
+	.Image			= "OS/ELIEOS/SYSTEM4/ADVANCE/BUTTONS/BTN_BLUE.png"
+	.event			= "%_exe_path_%=Click"
+	creer/
+end/ Bouton
+
+function/ activatenontwk.Click()
+
+rem/si seulement pas de reseau
+   CMD/ /THREAD delete/ C:/CPCDOS/DRIVERS/DOS/WEB.BAT
+   CMD/ /THREAD write/ /BIN C:/CPCDOS/DRIVERS/DOS/WEB.BAT = c:\CPCDOS\OS\ELIEOS\SYSTEM4\ELIEXT\LIVEBOOT\LIVEBOOT.BAT
+   CMD/ /THREAD delete/ C:/CPCDOS/OS/ELIEOS/SYSTEM4/ELIEXT/LIVEBOOT/REDIR.BAT
+   CMD/ /THREAD write/ /BIN C:/CPCDOS/OS/ELIEOS/SYSTEM4/ELIEXT/LIVEBOOT/REDIR.BAT = cd R:\CPCDOS
+end/ function
+
+rem/si avec reseau
+   rem/CMD/ /THREAD delete/ C:/CPCDOS/DRIVERS/DOS/WEB.BAT
+   rem/CMD/ /THREAD write/ /BIN C:/CPCDOS/DRIVERS/DOS/WEB.BAT = c:\CPCDOS\OS\ELIEOS\SYSTEM4\ELIEXT\LIVEBOOT\NETINST.BAT
+
+rem/desactiver garder reseau
+rem/CMD/ /THREAD delete/ C:/CPCDOS/DRIVERS/DOS/WEB.BAT
+   rem/CMD/ /THREAD write/ /BIN C:/CPCDOS/DRIVERS/DOS/WEB.BAT = C:\CPCDOS\DRIVERS\DOS\NETINST.BAT%CPC.CR%C:\CPCDOS\DRIVERS\DOS\EXEC.BAT
+function/ deactivatenontwk.Click()   
+rem/desactiver aucun reseau
+CMD/ /THREAD delete/ C:/CPCDOS/DRIVERS/DOS/WEB.BAT
+   CMD/ /THREAD write/ /BIN C:/CPCDOS/DRIVERS/DOS/WEB.BAT = C:\CPCDOS\DRIVERS\DOS\EXEC.BAT
+   CMD/ /THREAD delete/ C:/CPCDOS/OS/ELIEOS/SYSTEM4/ELIEXT/LIVEBOOT/REDIR.BAT
+   CMD/ /THREAD write/ /BIN C:/CPCDOS/OS/ELIEOS/SYSTEM4/ELIEXT/LIVEBOOT/REDIR.BAT = cd C:\CPCDOS
+end/ function

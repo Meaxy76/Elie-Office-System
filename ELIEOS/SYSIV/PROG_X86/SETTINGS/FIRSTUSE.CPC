@@ -1,0 +1,147 @@
+
+
+FIX/ setupwindow = /C((%CPC.SCR.X% / 2 - (600 / 2))
+
+Window/ firstsetup
+	.title 			= "ElieOS Setup"
+	.px				= "%setupwindow%"
+	.py 			= "100"
+	.sx 			= "600"
+	.sy             = "490"
+	.opacite 	    = "255"
+	.parameters 	= "TYPE:0"
+	.WindowColor	= "005,000,098"
+	.BackColor  	= "051,051,051"
+	.event = ""
+	@#setup_first create/
+END/ Window
+
+
+
+TEXTBLOCK/ Name
+	.Handle = "%setup_first%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "Firstname:"
+	.PX = "185"
+	.PY = "215"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ familyname
+	.Handle = "%setup_first%"
+	.PARAMETRES = "COL:0, BORD:0"
+	.TEXT = "Lastname:"
+	.PX = "185"
+	.PY = "255"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ username
+	.Handle = "%setup_first%"
+	.PARAMETRES = "COL:0, BORD:0"
+	.TEXT = "Username:"
+	.PX = "185"
+	.PY = "295"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+ TEXTBLOCK/ mdp
+	.Handle = "%setup_first%"
+	.PARAMETRES = "COL:0, BORD:0"
+	.TEXT = "Password:"
+	.PX = "185"
+	.PY = "335"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ info
+	.Handle = "%setup_first%"
+	.PARAMETRES = "COL:0, BORD:0"
+	.TEXT = "ELIEHD"
+	.PX = "270"
+	.PY = "185"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ oblig
+	.Handle = "%setup_first%"
+	.PARAMETRES = "COL:0, BORD:0"
+	.TEXT = "*You must fill all the fields"
+	.PX = "160"
+	.PY = "370"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ yesorno
+	.Handle = "%setup_first%"
+	.PARAMETRES = "COL:0, BORD:0"
+	.TEXT = "Activate the lock screen at startup?"
+	.PX = "3"
+	.PY = "435"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+set/ okok = \#NULL
+
+TEXTBLOCK/ waitwhat
+	.Handle = "%setup_first%"
+	.PARAMETRES = "COL:0, BORD:0"
+	.TEXT = "%okok%"
+	.PX = "172"
+	.PY = "460"
+	.TEXTCOLOR = "255,255,255"
+	CREATE/
+END/ TEXTBLOCK
+
+
+Checkbox/ Account_auto_log
+    .handle = "%setup_first%"
+    .PX = "5"
+    .PY = "465"
+    .Sx = "100"
+    .Sy = "20"
+    .BackColor = "255,255,240"
+    .TextColor = "255,255,255"
+    .Value = "0" 
+    .text = "Yahello!"
+	.event = "%_exe_path_%=Click"
+    create/
+End/ Checkbox
+
+Function/ Account_auto_log.Click()
+
+
+                 checkbox/ /modif:My_bar
+			              @#test .value
+		         end/ checkbox
+
+
+if/ "%test%" == "0" then:
+
+                 checkbox/ /modif:My_bar
+			              .value = "1"
+						  create/
+		         end/ checkbox
+				 
+else:
+
+
+                 checkbox/ /modif:My_bar
+			              .value = "0"
+						  create/
+		         end/ checkbox
+				 
+end/ if
+
+end/ function
+
+
+
+

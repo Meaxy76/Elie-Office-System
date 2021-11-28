@@ -1,0 +1,82 @@
+
+
+
+
+
+window/ Cpcdos_OSx_Disk
+	.title				= "ElieOS Disk utility"
+	.px					= "240"
+	.py					= "300"
+	.sx					= "798"
+	.sy					= "500"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:1 BLURRY:6 CTX:2"
+	.BackColor  		= "%ELIE.WINDOW.COLOR%"
+	.event				= "%_exe_path_%"
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/FORMATS/drive.png"
+	@#Disk_Win create/
+end/ window
+
+
+
+ccp/ /set.level = 3
+
+set/ Cpcdos_OSx_Disk.ctx_text(0) = About ElieOS Disk utility
+set/ Cpcdos_OSx_Disk.ctx_action(0) = txt/ ok
+
+set/ Cpcdos_OSx_Disk.ctx_text(1) = Exit
+set/ Cpcdos_OSx_Disk.ctx_action(1) = close/ Cpcdos_OSx_Disk
+
+set/ Cpcdos_OSx_Disk.ctx_number = 2
+
+ccp/ /set.level = 2
+
+
+picturebox/ no_internet_baka
+	.Handle			= "%Disk_Win%"
+	.Parameters		= "IMGAUTO:2"
+	.PX		    	= "0"
+	.PY		    	= "0"
+	.SX		    	= "200"
+	.SY		        = "500"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/backdd.png"
+	create/
+end/ Picturebox
+
+
+
+
+picturebox/ no_internet_baka2
+	.Handle			= "%Disk_Win%"
+	.Parameters		= "IMGAUTO:2"
+	.PX		    	= "200"
+	.PY		    	= "0"
+	.SX		    	= "600"
+	.SY		        = "500"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/backdd.png"
+	create/
+end/ Picturebox
+
+
+picturebox/ no_internet_baka2
+	.Handle			= "%Disk_Win%"
+	.Parameters		= "IMGAUTO:2"
+	.PX		    	= "68"
+	.PY		    	= "68"
+	.SX		    	= "64"
+	.SY		        = "64"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/FORMATS/drive.png"
+	create/
+end/ Picturebox
+
+
+picturebox/ no_internet_baka2
+	.Handle			= "%Disk_Win%"
+	.Parameters		= "IMGAUTO:2"
+	.PX		    	= "68"
+	.PY		    	= "182"
+	.SX		    	= "64"
+	.SY		        = "64"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/FORMATS/drive.png"
+	create/
+end/ Picturebox

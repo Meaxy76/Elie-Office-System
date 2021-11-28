@@ -1,0 +1,21 @@
+// LOAD EAC FILES
+
+
+Declare/ ELIEANIME_PROGRAM_LOADER() : Niveau(5)
+
+
+
+Function/ ELIEANIME_PROGRAM_LOADER(ANIME_TO_PLAY)
+  CCP/ /SET.LEVEL = 1
+
+
+  // Enter code here
+
+  write/ /BIN OS/ELIEOS/SYSIV/PROG_X86/ANIMATE/RUN.DT1 = %ANIME_TO_PLAY%
+  exe/ & OS/ELIEOS/SYSIV/PROG_X86/ANIMATE/ANIME.CPC
+
+end/ function
+
+
+
+

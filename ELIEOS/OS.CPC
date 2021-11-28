@@ -1,0 +1,47 @@
+sys/ /os:elieos
+
+// Charger le profil graphique PAR DEFAUT (Obligatoire)
+exe/ & %CPC.REP.KRNL%/CONFIG/ENV_GUI/env_gui.cpc
+
+// Background image
+set/ SCR_IMG = OS/ELIEOS/SYSIV/BACK/montagne.png
+
+// [EN] Screenshot folder
+SET/ SCR_SAVE = %CPC_TEMP%\SCR
+
+// Et APRES vous pouvez charger le votre
+
+set/ SCR_RES = 1024x768
+set/ SCR_BIT = 32
+
+ccp/ /set.level = 4
+
+
+
+// **************************************************
+// ** [EN] Operating system informations           **
+// ** [FR] Informations du systeme d'exploitation  **
+// **************************************************
+
+set/ OS_NAME = ElieOS
+set/ OS_Author = Meaxy Kusama
+set/ OS_VERSION = 4.0.0A
+set/ OS_Compagny = Meaxy Kusama
+SET/ OS_Created = 18-11-2018
+SET/ OS_build = 2021.1129
+SET/ OS_CODENAME = Wild West
+
+
+// ***************************************************
+// ** [EN] Operating system configuration           **
+// ** [FR] Configuration du systeme d'exploitation  **
+// ***************************************************
+
+set/ HOST_OS = OS/ElieOS
+
+
+exe/ & OS/ELIEOS/SYSIV/ELIE32/ELIEXT/ELIEXT.CPC
+
+
+
+

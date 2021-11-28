@@ -1,0 +1,149 @@
+
+
+
+
+window/ affichage
+	.title 			= "Display setting"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "700"
+	.SY = "175"
+	// .opacity 	= "100"
+	.parameters 	= "TYPE:0 SIZBTN:0"
+	.BackColor	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/resol.png"
+	.event = ""
+	@#screen_os create/
+end/ window
+
+
+textblock/ resolution
+	.Handle = "%screen_os%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Resolution"
+	.PX = "130"
+	.PY = "10"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock
+
+textblock/ dispo
+	.Handle = "%screen_os%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Here are the resolutions available under ElieOS"
+	.PX = "145"
+	.PY = "30"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock
+
+set/ analy = \#NULL
+
+textblock/ analysedata
+	.Handle = "%screen_os%"
+	.parameters = "COL:0, BORD:0"
+	.text = "%analy%"
+	.PX = "105"
+	.PY = "140"
+	.textcolor = "255,255,255"
+	create/
+end/ textblock
+
+set/ filename = \#NULL
+
+textbox/ file_data
+	.handle			= "%screen_os%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "135"
+        .PY                             = "90"
+	.SX				= "200"
+	.SY				= "15"
+	.CouleurFond	= "188,188,188"
+	.textcolor	= "000,000,000"
+    .text          = "%filename%"
+	.event			= "%_exe_path_%=KeyPress"
+    create/
+end/ textbox
+
+
+picturebox/ resolution
+	.Handle			= "%screen_os%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "10"
+	.PY			= "10"
+	.SX			= "115"
+	.SY		        = "115"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/resol.png"
+	rem/.opacity		= "150"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+button/ analyse435
+	.Handle			= "%screen_os%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "15"
+	.PY				= "135"
+	.SX				= "90"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "Analyse"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.textcolor = "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+FONCTION/ analyse435.Click()
+txt/ os
+@#SCREEN sys/ /liste /ecran 24
+
+textblock/ /modif:analysedata
+                         .text = "%SCREEN%"
+						 .textcolor = "255,255,255"
+                         create/
+                end/ textblock
+				set/ /S SCREEN
+end/ FONCTION
+
+button/ customresol
+	.Handle			= "%screen_os%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "340"
+	.PY				= "85"
+	.SX				= "60"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "Set"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.textcolor = "255,255,255"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+FUNCTION/ customresol.Click()
+                TEXTBOX/ /modif:file_data
+                @#Contenu .text
+                         create/
+                end/ TEXTBOX
+				
+	@#SCREEN sys/ /liste /ecran 24
+
+	SET/ SCREEN_CHECK = /f:CPC.INSTR(%SCREEN%, %Contenu%)
+	
+	if/ "%SCREEN_CHECK%" > "0" then:
+	          DELETE/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf
+	          CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf = %Contenu%
+	          GUI/ /CONSOLE
+	          set/ SCR_RES = %Contenu%
+              SYS/ /OS:ELIEOS
+              GUI/
+              refresh/ /all
+    ELSE:
+	          /F:ELIE.MSGBOX(%Contenu% Not supported!,ElieOS,4,0)
+	end/ if
+end/ FUNCTION
+
+
+

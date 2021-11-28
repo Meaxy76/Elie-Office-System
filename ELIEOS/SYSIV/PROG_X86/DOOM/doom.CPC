@@ -1,0 +1,51 @@
+// SYS/ /debug = 2
+
+// Sys/ /debug /cpinticore = 1
+
+Window/ bitmap_test
+
+        .title          = "DOOM"
+        .parameters     = ""
+        .px             = "150"
+        .py             = "60"
+        .sx             = "640"
+        .sy             = "400"
+        .opacity        = "255"
+        .events         = ""
+
+        @#window_handle create/
+
+End/ Window
+
+// Executer OpenGL Win32 dans un nouveau thread
+@#NumeroThread cmd/ /thread[MAX] exe/ /Win32 OS/ELIEOS/SYSIV/PROG_X86/DOOM/doom.exe
+
+// Convertir en handle
+Fix/ Handle = /C(%NumeroThread% * 1024)
+
+CCP/ /PAUSE 5000
+
+@#ImgID SYS/ /BITMAP /Get /IDbyHandle %Handle%
+
+
+Picturebox/ render
+
+
+        .handle         = "%window_handle%"
+        .parameters     = "UPD:1"
+        .px             = "0"
+        .py             = "0"
+        .sx             = "640"
+        .sy             = "400"
+        .opacity        = "0"
+        .image          = "#%ImgID%"
+
+        create/
+
+End/ Picturebox
+
+
+
+
+
+

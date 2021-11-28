@@ -1,0 +1,401 @@
+
+ccp/ /set.level = 2
+CCP/ /Optimization = 1
+
+window/ background
+	.title 			= "Wallpaper settings"
+	.px				= "100"
+	.py				= "50"
+	.SX				= "700"
+	.SY				= "680"
+	rem/ .opacity 		= "100"
+	.parameters		= "TYPE:0 SIZBTN:0"
+	.WindowColor	= "050,050,100"
+	.BackColor	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/wallppr.png"
+	.event			= ""
+	@#backgrnd_Fenetre create/
+end/ window
+
+
+@#BACKGROUND OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/BACK.ECF
+
+
+picturebox/ ACTUAL_WALLPAPER
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "20"
+	.PY				= "20"
+	.SX				= "490"
+	.SY				= "294"
+	.Image			= "%BACKGROUND%"
+	rem/.opacity		= "100"
+	.event			= ""
+	create/
+end/ Picturebox
+
+
+
+Textbox/ file_data
+	.handle			= "%backgrnd_Fenetre%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1 BORD:1"
+    .PX             = "20"
+    .PY             = "325"
+	.SX				= "500"
+	.SY				= "15"
+	.BackColor	= "188,188,188"
+	.TextColor	= "000,000,000"
+    .text          = "OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/MYSPACE/WALLPPR/"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+
+
+
+picturebox/ wallpp1
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "20"
+	.PY				= "370"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/elieos3.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp1.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/elieos3.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+picturebox/ wallpp2
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "190"
+	.PY				= "370"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/tanuki.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp2.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/tanuki.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+picturebox/ wallpp3
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "20"
+	.PY				= "470"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/sky.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp3.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/sky.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+picturebox/ wallpp4
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "190"
+	.PY				= "470"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/cpcdos.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp4.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/cpcdos.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+picturebox/ wallpp5
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "20"
+	.PY				= "580"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/blue.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp5.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/blue.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+picturebox/ wallpp6
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "190"
+	.PY				= "580"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/cuty.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp6.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/cuty.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+picturebox/ wallpp7
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "360"
+	.PY				= "370"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/origin.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp7.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/origin.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+
+picturebox/ wallpp8
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "360"
+	.PY				= "470"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/stars.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp8.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/stars.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+picturebox/ wallpp9
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "360"
+	.PY				= "580"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/freedom.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp9.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/freedom.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+
+picturebox/ wallpp10
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "530"
+	.PY				= "370"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/mikie.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp10.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/mikie.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+
+picturebox/ wallpp11
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "530"
+	.PY				= "470"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/moe.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp11.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/moe.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+
+picturebox/ wallpp12
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "530"
+	.PY				= "580"
+	.SX				= "150"
+	.SY				= "90"
+	.Image			= "OS/ELIEOS/SYSIV/BACK/PPBW.png"
+	rem/.opacity		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ wallpp12.Click()
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "OS/ELIEOS/SYSIV/BACK/PPBW.png"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+end/ function
+
+button/ app_pic1
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "550"
+	.PY				= "100"
+	.SX				= "75"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.texte			= "Apply"
+	.TextColor      = "168,168,168"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/DEF_GUI.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+
+button/ hello_custom
+	.Handle			= "%backgrnd_Fenetre%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "550"
+	.PY				= "200"
+	.SX				= "75"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.texte			= "Search"
+	.TextColor      = "168,168,168"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/DEF_GUI.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+
+function/ hello_custom.Click()
+
+        TEXTBOX/ /modif:file_data
+			@#SEARCH_MAMA .TEXT
+		end/ TEXTBOX
+		
+ SET/ TRUE_SEARCH = /F:CPC.FILE_EXIST(%SEARCH_MAMA%)
+ 
+ if/ "%TRUE_SEARCH%" == "1" then:
+ // We display the custom background
+ 
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			.IMAGE			= "%SEARCH_MAMA%"
+			create/
+		end/ PICTUREBOX
+		refresh/ ACTUAL_WALLPAPER
+		refresh/ background
+ else:
+		 /F:ELIE.MSGBOX(ElieOS,Error!,3)
+ end/ if
+end/ function
+
+
+FUNCTION/ app_pic1.Click()
+
+
+        PICTUREBOX/ /modif:ACTUAL_WALLPAPER
+			@#NEW_BACK .IMAGE
+		end/ PICTUREBOX
+
+DELETE/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/BACK.ECF
+
+CMD/ /THREAD WRITE/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/BACK.ECF = %NEW_BACK%
+
+GUI/ /CONSOLE
+
+SET/ SCR_IMG = %NEW_BACK%
+SYS/ /OS:ELIEOS
+// @#NEW_BACK OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/BACK.ECF
+
+
+GUI/
+end/ FUNCTION
+

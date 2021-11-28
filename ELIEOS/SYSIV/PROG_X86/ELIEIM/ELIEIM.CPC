@@ -1,0 +1,310 @@
+// T'chat
+// By SPinti Software
+// FREE CODE !!!!!!!
+// CREATED 26-OCT-2020
+// UPDATED 31-OCT-2020
+// ElieOS Version 01-NOV-2020
+
+
+ccp/ /set.niveau = 3
+
+// Main server
+set/ SERVER = deposit.cpcdos.net
+
+// ---- Don't touch ----
+set/ SERVER_APP = NULL
+set/ Username = NULL
+set/ IS_CONNECTED = false
+// ---------------------
+
+// Number displayed lines from server
+set/ NB_LINES = 20
+
+// Window size
+set/ Win_Size_X = 480
+set/ Win_Size_Y = 260
+
+ccp/ /set.niveau = 2
+
+window/ Tchat_GUI
+	.title				= "ElieIM"
+	.px					= "240"
+	.py					= "300"
+	.sx					= "%Win_Size_X%"
+	.sy					= "%Win_Size_Y%"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:1 BLURRY:6 CTX:2"
+	.WindowColor		= "%ELIE.WINDOW.COLOR%"
+	.BackColor			= "051,051,051"
+	.event				= "%_exe_path_%"
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/CHAT1.png"
+	@#window create/
+end/ window
+
+ccp/ /set.level = 3
+
+set/ Tchat_GUI.ctx_text(0) = About ElieIM
+set/ Tchat_GUI.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/ElieIM/about.CPC
+
+set/ Tchat_GUI.ctx_text(1) = Exit
+set/ Tchat_GUI.ctx_action(1) = close/ Tchat_GUI
+
+set/ Tchat_GUI.ctx_number = 2
+
+ccp/ /set.level = 2
+
+
+// ----------------------------
+
+button/ btn_connection
+	.handle				= "%window%"
+	.px					= "5"
+	.py					= "5"
+	.sx					= "120"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "000,000,000"
+	.text				= "Connect"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.event				= "%_exe_path_%=MouseClick"
+	create/
+end/ button
+
+textbox/ txt_user
+	.handle				= "%window%"
+	.parameters			= ""
+	.px					= "140"
+	.py					= "5"
+	.sx					= "100"
+	.sy					= "20"
+	.BackColor			= "188,188,188"
+	.TextColor			= "000,000,000"
+	.text 				= "%ACTIVE_USER%"
+	create/
+end/ textbox
+
+textblock/ txtk_etat
+	.handle				= "%window%"
+	.px					= "260"
+	.py					= "5"
+	.sx					= "160"
+	.sy					= "16"
+	.parameters			= ""
+	.BackColor 			= "188,188,188"
+	.TextColor			= "000,000,000"
+	.text				= "Not connected."
+	create/
+end/ textblock
+
+// Dialog textbox sizes
+ccp/ /set.level = 3
+set/ dialog_size_X = /C(%Win_Size_X% - 10)
+set/ dialog_size_Y = /C(%Win_Size_Y% - 70))
+ccp/ /set.level = 2
+
+textbox/ dialog
+	.handle				= "%window%"
+	.parameters			= "MULTILINE:1 EDIT:0"
+	.px					= "5"
+	.py					= "28"
+	.sx					= "%dialog_size_X%"
+	.sy					= "%dialog_size_Y%"
+	.BackColor			= "188,188,188"
+	.TextColor			= "000,000,000"
+	.text 				= "... waiting ... "
+	create/
+end/ textbox
+
+// ----------------------------
+
+// Sender textbox sizes
+ccp/ /set.level = 3
+set/ sender_size_X = /C(%Win_Size_X% - 10)
+set/ sender_size_Y = 30
+
+set/ sender_pos_Y = /C((28 + %dialog_size_Y% + 5)
+ccp/ /set.level = 2
+
+textbox/ sender
+	.handle				= "%window%"
+	.parameters			= "MULTILINE:1"
+	.px					= "5"
+	.py					= "%sender_pos_Y%"
+	.sx					= "%sender_size_X%"
+	.sy					= "%sender_size_Y%"
+	.BackColor			= "188,188,188"
+	.TextColor			= "000,000,000"
+	.text 				= ""
+	.event				= "%_exe_path_%=KeyEnter"
+	create/
+end/ textbox
+
+
+// ----------------------------
+
+function/ thread_getdialog()
+	// This thread function able to getting dialog from server
+	
+	// All operation will be privated
+	ccp/ /set.level = 1
+
+	:LOOP:
+	
+	// Pause
+	ccp/ /pause 2500
+	
+	// If we disconnect, we will stop this thread. 'IN PEACE'
+	if/ "%IS_CONNECTED%" == "false" then: stop/
+
+	// If is connected, getting informations from server
+	if/ "%IS_CONNECTED%" == "true" then:
+		
+		// Download dialog text
+		download/ %SERVER_APP%?command=receive&lines=%NB_LINES%
+		ccp/ /pause 500
+		
+		// Open temp file
+		@#dialogue open/ %CPC_TEMP.NET%/%SERVER%/apps/online/private/tchat.php
+		
+		// Display raw text in dialog textbox
+		textbox/ /modif:dialog
+			.text = "%dialogue%"
+	        .TextColor			= "000,000,000"
+			create/
+		end/ textbox
+	end/ if
+	
+	goto/ LOOP
+	
+end/ function
+
+
+// ----------------------
+// ===== GUI EVENTS =====
+// ----------------------
+
+
+Function/ btn_connection.MouseClick()
+	// We get t'chat instance from server
+	ccp/ /set.level = 3
+	
+	// During connection
+	textblock/ /modif:txtk_etat
+		.text 		= "Attempt to connect..."
+	.TextColor			= "000,000,000"
+		.BackColor 	= "050,150,200"
+		create/
+	end/ textblock/
+	
+	// Download path of 'tchat' application
+	download/ http://%SERVER%/apps/link.php?app=tchat
+	
+	// Wait
+	ccp/ /pause 1000
+	
+	// Read results
+	@#SERVER_APP open/ %CPC_TEMP.NET%/%SERVER%/apps/link.php
+	
+	// If result content "tchat.php" string, it's ok!
+	if/ "%SERVER_APP%" ~= "tchat.php" then:
+	
+		// Change variable state
+		set/ IS_CONNECTED = true
+		
+		// Indicate that we connected in green
+		textblock/ /modif:txtk_etat
+			.text 		= "Connected !"
+	.TextColor			= "000,000,000"
+			.BackColor 	= "050,200,100"
+			create/
+		end/ textblock
+		
+		// Get username from textbox
+		textbox/ /modif:txt_user
+			@#Username .text
+		end/ textbox
+		
+		// Execute thread_getdialog() on another thread in loop
+		cmd/ /thread /F:thread_getdialog()
+	
+	else:
+	
+		// Change variable state
+		set/ IS_CONNECTED = false
+		
+		// Indicate that we connected in green
+		textblock/ /modif:txtk_etat
+			.text 		= "No connected..."
+	.TextColor			= "000,000,000"
+			.BackColor 	= "200,050,050"
+			create/
+		end/ textblock/
+	end/ if
+end/ function
+
+Function/ sender.KeyEnter(texte)
+	// If user press ENTER key
+	ccp/ /set.level = 1
+	
+	// If connected, you can send messages
+	if/ "%IS_CONNECTED%" == "true" then:
+		download/ %SERVER_APP%?command=send&username=%username%&message=%texte%
+	end/ if
+	
+	// Empty textbox
+	textbox/ /modif:sender
+		.text = ""
+	.TextColor			= "000,000,000"
+		create/
+	end/ textbox/
+	
+End/ Function
+
+
+Function/ Tchat_GUI.Windowclosing()
+	// If user close window
+
+	// Stopping "peace" the thread, without forcing, because i'm sympathic developper :D
+	SET/ IS_CONNECTED = false
+	
+End/ Function
+
+
+Function/ Tchat_GUI.Resize(sizeup)
+	// If user change window size
+
+	// Getting size informationsof window
+	window/ /modif:Tchat_GUI
+		@#Win_Size_X .sx
+		@#Win_Size_Y .sy
+	end/ window
+	
+	// Re-calculate sizing
+	set/ dialog_size_X = /C(%Win_Size_X% - 10)
+	set/ dialog_size_Y = /C(%Win_Size_Y% - 70))
+
+	textbox/ /modif:dialog
+		.sx					= "%dialog_size_X%"
+		.sy					= "%dialog_size_Y%"
+	.TextColor			= "000,000,000"
+		create/
+	end/ textbox
+
+	// Re-calculate sizing
+	set/ sender_size_X = /C(%Win_Size_X% - 10)
+	set/ sender_size_Y = 30
+
+	set/ sender_pos_Y = /C((28 + %dialog_size_Y% + 5)
+
+	textbox/ /modif:sender
+		.py					= "%sender_pos_Y%"
+		.sx					= "%sender_size_X%"
+		.sy					= "%sender_size_Y%"
+	.TextColor			= "000,000,000"
+		create/
+	end/ textbox
+	
+End/ function
+
+
+

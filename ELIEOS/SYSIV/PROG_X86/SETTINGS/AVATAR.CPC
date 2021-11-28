@@ -1,0 +1,196 @@
+
+window/ propic
+	.title 			= "Profle picture"
+	.px				= "400"
+	.py				= "100"
+	.sx				= "340"
+	.sy				= "225"
+	.parameters		= "TYPE:0 SIZ:0"
+	.WindowColor	= "050,050,100"
+	.BackColor  	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/user.png"
+	.event			= ""
+	@#account_avatar create/
+end/ window
+
+
+picturebox/ un
+	.Handle			= "%account_avatar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "10"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/elie.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ un.Click()
+
+    picturebox/ /modif:logologin
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/elie.png"
+		 create/
+    end/ picturebox
+	refresh/ logologin
+	refresh/ user_sett
+	write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/AVATAR.ECF = OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/elie.png
+
+end/ function
+
+
+picturebox/ deux
+	.Handle			= "%account_avatar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "120"
+	.PY				= "10"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/tanuki.png"
+	rem/.opacite		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ deux.Click()
+
+    picturebox/ /modif:logologin
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/tanuki.png"
+		 create/
+    end/ picturebox
+	refresh/ logologin
+	refresh/ user_sett
+	write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/AVATAR.ECF = OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/tanuki.png
+
+end/ function
+
+picturebox/ trois
+	.Handle			= "%account_avatar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "230"
+	.PY				= "10"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/moe.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ trois.Click()
+
+    picturebox/ /modif:logologin
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/moe.png"
+		 create/
+    end/ picturebox
+	refresh/ logologin
+	refresh/ user_sett
+	write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/AVATAR.ECF = OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/moe.png
+
+end/ function
+
+
+picturebox/ quatre
+	.Handle			= "%account_avatar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "10"
+	.PY				= "120"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE1.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ quatre.Click()
+
+    picturebox/ /modif:logologin
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE1.png"
+		 create/
+    end/ picturebox
+	refresh/ logologin
+	refresh/ user_sett
+	write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/AVATAR.ECF = OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE1.png
+
+end/ function
+
+
+
+picturebox/ cinq
+	.Handle			= "%account_avatar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "120"
+	.PY				= "120"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE2.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ cinq.Click()
+
+    picturebox/ /modif:logologin
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE2.png"
+		 create/
+    end/ picturebox
+	refresh/ logologin
+	refresh/ user_sett
+	write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/AVATAR.ECF = OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE2.png
+
+end/ function
+
+
+
+picturebox/ six
+	.Handle			= "%account_avatar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "230"
+	.PY				= "120"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/aiko.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ six.Click()
+
+    picturebox/ /modif:logologin
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/aiko.png"
+		 create/
+    end/ picturebox
+	refresh/ logologin
+	refresh/ user_sett
+	write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/AVATAR.ECF = OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/aiko.png
+
+end/ function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

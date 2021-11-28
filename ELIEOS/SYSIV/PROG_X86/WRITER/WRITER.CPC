@@ -1,0 +1,80 @@
+
+ 
+
+ccp/ /set.level = 2  
+
+
+window/ elie_pad
+	.title 			= "ElieWriter"
+	.px				= "100"
+	.py 			= "50"
+	.sx 			= "800"
+	.sy             = "550"
+	.parameters 	= "TYPE:0 BLURRY:6 CTX:2"
+	.Opacity 		= "200"
+	.WindowColor	= "050,050,100"
+	.BackColor  	= "051,051,051"
+	// .icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/elienote.png"
+    .events         = "%_EXE_PATH_%"
+	@#elie_note create/
+end/ window
+
+
+
+ccp/ /set.level = 3
+
+set/ elie_pad.ctx_text[0] = About ElieWriter
+set/ elie_pad.ctx_action[0] = exe/ & %HOST_OS%/SYSIV/PROG_X86/writer/about.CPC
+
+set/ elie_pad.ctx_text[1] = Exit
+set/ elie_pad.ctx_action[1] = close/ elie_pad
+
+set/ elie_pad.ctx_number = 2
+
+ccp/ /set.level = 2
+
+
+
+SET/ Content = \#NULL
+
+
+
+
+Textbox/ zone_texte
+	.handle			= "%elie_note%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+	.PX				= "0"
+	.PY				= "0"
+	.SX				= "800"
+	.SY				= "550"
+	.BackColor	    = "255,255,255"
+	.TextColor   	= "000,000,000"
+    .text           = "%Content%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+
+Function/ elie_pad.Resize(up)
+        ccp/ /set.level = 2  
+		// Blabla 
+
+        window/ /modif:elie_pad
+                @#Size_X .sx
+                @#Size_Y .sy
+        end/ window
+
+        set/ Size_Y = /C(%Size_Y% - 52)
+
+        
+        textbox/ /modif:zone_texte
+                .sx = "%Size_X%"
+                .sy = "%Size_Y%"
+                create/
+        end/ textbox
+		
+
+End/ function
+
+
+

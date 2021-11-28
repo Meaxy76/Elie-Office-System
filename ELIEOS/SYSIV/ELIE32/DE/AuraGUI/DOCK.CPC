@@ -1,0 +1,175 @@
+
+
+SET/ POS_Y_BAR = /C(%CPC.SCR.Y% - 44)
+
+
+
+window/ upbar
+	.title 			= "up_bar"
+	.px				= "0"
+	.py				= "%POS_Y_BAR%"
+	.sx				= "%CPC.SCR.X%"
+	.sy				= "47"
+    .Opacity 		= "0"
+	.Parameters		= "TYPE:4 CTN:1 BORD:0 OMBRE:0 BLURRY:6 TASKBAR:1"
+	.BackColor  	= "%ELIE.WINDOW.COLOR%"
+	.event			= ""
+	@#DOCK_OS create/
+end/ window
+
+    // TOP LEFT
+    picturebox/ Win_context_menu_img_TL
+        .Handle			= "%DOCK_OS%"
+        .parameters		= "IMGAUTO:0"
+        .px				= "0"
+        .py				= "0"
+        .sx				= "7"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_TL.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+    SET/ Pos_Right_Img = /c(%CPC.SCR.X% - 7)
+	
+    // TOP RIGHT
+    picturebox/ Win_context_menu_img_TR
+        .Handle			= "%DOCK_OS%"
+        .parameters		= "IMGAUTO:0"
+        .px				= "%Pos_Right_Img%"
+        .py				= "0"
+        .sx				= "7"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_TR.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+    SET/ SIZE_X_OK = /c(%CPC.SCR.X% - 14)
+	    // TOP MIDDLE
+    picturebox/ Win_context_menu_img_M
+        .Handle			= "%DOCK_OS%"
+        .parameters		= "IMGAUTO:2"
+        .px				= "7"
+        .py				= "0"
+        .sx				= "%SIZE_X_OK%"
+        .sy				= "7"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_M.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+	    // CENTER - MIDDLE
+    picturebox/ Win_context_menu_img_M
+        .Handle			= "%DOCK_OS%"
+        .parameters		= "IMGAUTO:2"
+        .px				= "0"
+        .py				= "7"
+        .sx				= "%CPC.SCR.X%"
+        .sy				= "40"
+        .Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/CTX_M.PNG"
+        .opacity		= "255"
+        creer/
+    Fin/ Picturebox
+
+
+picturebox/ menu_btn
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "3"
+	.PY			= "3"
+	.sx			= "40"
+	.sy		        = "40"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/menu.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ picturebox
+
+
+FUNCTION/ menu_btn.Click()
+	EXE/ & %HOST_OS%/SYSIV/ELIE32/DESKTOP/AURAGUI/DIRXT.CPC
+END/ FUNCTION
+
+
+SET/ POS_X_AAH = /C(%CPC.SCR.X% - 150)
+
+picturebox/ more
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:0"
+	.PX			= "%POS_X_AAH%"
+	.PY			= "8"
+	.sx			= "30"
+	.sy		        = "30"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/MORE.PNG"
+	// .event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+SET/ POS_X_AAHHH = /C(%CPC.SCR.X% - 110)
+
+picturebox/ more
+	.Handle			= "%DOCK_OS%"
+	.Parameters		= "IMGAUTO:0"
+	.PX			= "%POS_X_AAHHH%"
+	.PY			= "8"
+	.sx			= "100"
+	.sy		        = "30"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/GUI_CONF/GUI/ZONE.PNG"
+	// .event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+SET/ POSX = /C(%CPC.SCR.X% - 64)
+
+TEXTBLOCK/ time
+	.Handle = "%DOCK_OS%"
+	.PARAMETERS = "COL:1, BORD:0, UPD:1"
+	.TEXT = "${CPC.TIME}"
+	.PX = "%POSX%"
+	.PY = "13"
+	.SX = "50"
+	.SY = "10"
+	.BackColor = "171,171,171"
+	.TextColor = "255,255,255"
+	CREATE/
+end/ TEXTBLOCK
+
+
+	@#PACKET_TEST PING/ www.google.com
+
+    SET/ ReadPacket = /f:CPC.INSTR(%PACKET_TEST%, Network error)
+
+    if/ "%ReadPacket%" > "0" then:
+            set/ COY = /C(%CPC.SCR.X% - 90)
+
+            picturebox/ notif_center
+	                .Handle			= "%DOCK_OS%"
+	                .parameters		= "IMGAUTO:2 COL:1"
+                	.PX				= "%COY%"
+                	.PY				= "15"
+                 	.SX				= "19"
+                 	.SY				= "19"
+	                .Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/noco.png"
+	                rem/.event			= "%_exe_path_%=Click"
+	                create/
+           end/ Picturebox
+    else:
+            set/ COY = /C(%CPC.SCR.X% - 90)
+
+            picturebox/ notif_center
+	                .Handle			= "%DOCK_OS%"
+	                .parameters		= "IMGAUTO:2 COL:1"
+                	.PX				= "%COY%"
+                	.PY				= "15"
+                 	.SX				= "19"
+                 	.SY				= "19"
+	                .Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/co.png"
+	                rem/.event			= "%_exe_path_%=Click"
+	                create/
+           end/ Picturebox
+    end/ if
+   // exe/ & %HOST_OS%/SYSIV/WARN.CPC
+refresh/ /all
+
+
+

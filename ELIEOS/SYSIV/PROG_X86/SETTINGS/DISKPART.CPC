@@ -1,0 +1,68 @@
+
+
+
+window/ mxdos
+	.title 			= "Elie Disk Utility"
+	.px				= "100"
+	.py 			= "100"
+	.SX 			= "390"
+	.SY = "100"
+	// .opacity 	= "100"
+	.parameters 	= "TYPE:0"
+	.WindowColor	= "050,050,100"
+	.BackColor	= "%ELIE.WINDOW.COLOR%"
+	.icon          = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/hdd.png"
+	.event = ""
+	@#dos_sys create/
+end/ window
+
+textblock/ id_cpu
+	.Handle = "%dos_sys%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Start Disk Utility?"
+	.PX = "20"
+	.PY = "3"
+	.textcolor = "000,000,000"
+	create/
+end/ textblock
+
+button/ btn_yes
+	.Handle			= "%dos_sys%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "15"
+	.PY				= "25"
+	.SX				= "75"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "Yes"
+	.Image			= "OS/ELIEOS/SYSTEM4/ADVANCE/Buttons/BTN_BLUE.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+button/ btn_no
+	.Handle			= "%dos_sys%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "110"
+	.PY				= "25"
+	.SX				= "75"
+	.SY				= "30"
+	rem/ .opacity		= "100"
+	.text			= "No"
+	.Image			= "OS/ELIEOS/SYSTEM4/ADVANCE/Buttons/BTN_BLUE.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ btn_yes.click()
+   close/ mxdos
+   gui/ /CONSOLE
+   DOS/ OS/ELIEOS/SYSIV/PROG_X86/DISKPART/DISKPART.BAT
+   SYS/ /OS:ELIEOS
+   gui/
+   
+end/ function
+
+function/ btn_no.click()
+   close/ mxdos
+end/ function

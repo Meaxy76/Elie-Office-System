@@ -1,0 +1,154 @@
+//////////////////////////////////////////
+// Prototype de service internet ElieOS //
+// Utilise le tcp/ip et telnet          //
+// DOWNLOAD/                            //
+// serveur/                             //
+// client/                              //
+// FUCK MY LIFE                         //
+// ElieOS3 ou 4                         //
+//////////////////////////////////////////
+
+// Declare/ EMode_get_user_validation(IPaddress, Port, username) : LEVEL(5)
+
+// Declare/ EMode_LoIRC(IPaddress, Port, username) : LEVEL(5)
+CCP/ /SET.LEVEL = 2
+
+CCP/ /OPTIMIZATION = 2
+
+window/ Elie_Mode
+	.title				= "Elie-Mode"
+	.px					= "50"
+	.py					= "60"
+	.sx					= "600"
+	.sy					= "480"
+	.Opacity 	    	= "200"
+	.parameters			= "TYPE:0 BLURRY:6"
+	.backcolor		    = "%ELIE.WINDOW.COLOR%"
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/web.png"
+	.event				= ""
+	@#emode_start create/
+end/ window
+
+
+ 
+// ***** Loading Screen ***** //
+
+SET/ LOADING_FILENAME = IMG_
+SET/ LOADING_START = 0
+SET/ LOADING_FINISH = 49
+SET/ LOADING_LOOP = 1
+SET/ LOADING_ORDER = %LOADING_START%
+set/ LOADING_POSX = /C((600 / 2) - (75 / 2))
+set/ LOADING_POSY = /C((480 / 2) - (76 / 2))
+
+picturebox/ test_animation_asuka
+	.Handle			= "%emode_start%"
+	.Parameters		= "IMGAUTO:2"
+	.PX		    	= "%LOADING_POSX%"
+	.PY		    	= "%LOADING_POSY%"
+	.SX		    	= "75"
+	.SY		        = "76"
+	.Image			= "OS/ElieOS/SYSIV/PROG_X86/EMODE/LOAD/%LOADING_FILENAME%0.png"
+	create/
+end/ Picturebox
+
+:ANIME:
+
+ccp/ /pause 75
+
+SET/ LOADING_ORDER = /C(%LOADING_ORDER% + 1)
+
+IF/ "%LOADING_ORDER%" == "%LOADING_FINISH%" THEN:
+FIX/ LOADING_ORDER = 0
+SET/ LOADING_LOOP = /C(%LOADING_LOOP% - 1)
+END/ IF
+
+picturebox/ /MODIF:test_animation_asuka
+ .image = "OS/ElieOS/SYSIV/PROG_X86/EMODE/LOAD/%LOADING_FILENAME%%LOADING_ORDER%.png"
+ create/
+end/ picturebox
+
+
+IF/ "%LOADING_LOOP%" == "0" THEN:
+   SET/ i = 0
+
+    @#PACKET_TEST PING/ www.google.com
+
+    SET/ ReadPacket = /f:CPC.INSTR(%PACKET_TEST%, Network error)
+
+    if/ "%ReadPacket%" > "0" then:
+            goto/ NOCONNECTION
+    else:
+            goto/ CONNECTED
+    end/ if
+
+END/ IF
+
+refresh/ test_animation_asuka
+refresh/ MX_PAT_ANIME
+
+goto/ ANIME
+
+:NOCONNECTION:
+close/ test_animation_asuka
+
+picturebox/ no_internet_baka
+	.Handle			= "%emode_start%"
+	.Parameters		= "IMGAUTO:2"
+	.PX		    	= "0"
+	.PY		    	= "0"
+	.SX		    	= "600"
+	.SY		        = "480"
+	.Image			= "OS/ElieOS/SYSIV/PROG_X86/EMODE/ERR/test.png"
+	create/
+end/ Picturebox
+
+
+textblock/ logged
+	.Handle = "%emode_start%"
+	.parameters = "COL:0, BORD:0"
+	.text = "EM_ERR_08"
+	.PX = "10"
+	.PY = "1"
+	.TextColor = "000,000,000"
+	create/
+end/ textblock
+
+refresh/ no_internet_baka
+refresh/ MX_PAT_ANIME
+
+stop/
+
+
+:CONNECTED:
+
+close/ test_animation_asuka
+
+picturebox/ internet_baka
+	.Handle			= "%emode_start%"
+	.Parameters		= "IMGAUTO:2"
+	.PX		    	= "0"
+	.PY		    	= "0"
+	.SX		    	= "600"
+	.SY		        = "205"
+	.Image			= "OS/ElieOS/SYSIV/PROG_X86/EMODE/CONN/head.png"
+	create/
+end/ Picturebox
+
+
+refresh/ internet_baka
+refresh/ MX_PAT_ANIME
+
+textblock/ logged
+	.Handle = "%emode_start%"
+	.parameters = "COL:0, BORD:0"
+	.text = "E-Mode is not finished!"
+	.PX = "10"
+	.PY = "1"
+	.TextColor = "000,000,000"
+	create/
+end/ textblock
+
+
+
+

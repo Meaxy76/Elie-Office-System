@@ -1,0 +1,87 @@
+// ***************************************** //
+// ElieXT 5.0 (c) 2021 Meaxy Kusama          //
+// ElieOS 4.0 and higher                     //
+// ***************************************** //
+
+ccp/ /set.level = 4
+
+GUI/ /CONSOLE
+SYS/ /OS:ELIEOS
+
+SET/ SCR_MODE = 19
+SET/ SCR_IMG_MODE = 2
+SET/ SCR_COLOR = 050,150,250
+
+// Starting Ohayo GUI Librairie
+EXE/ & %HOST_OS%/SYSIV/ELIE32/OHAYO/OHAYO.CPC
+
+@#LOCK_STATE OPEN/ %HOST_OS%/SYSIV/USERXT/STATE.ESL
+
+
+
+IF/ "%LOCK_STATE%" == "0" then:
+// Activate Lockscreen with Username in LIST.LST
+   ccp/ /set.level = 4
+   SYS/ /OS:ELIEOS
+   @#ACTIVE_USER OPEN/ %HOST_OS%/SYSIV/USERXT/LIST.LST
+   
+   @#BACKGROUND OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/BACK.ECF
+   set/ SCR_IMG = %BACKGROUND%
+   @#RESOLUTION OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf
+   
+   @#SYS_SCREEN sys/ /liste /ecran 32
+   SET/ Resol_Check = /f:CPC.INSTR(%SYS_SCREEN%, %RESOLUTION%)
+                        if/ "%Resol_Check%" > "0" then:
+	                         set/ SCR_RES = %RESOLUTION%
+   
+                        ELSE:
+						     txt/ Anta baka !? Nande!?
+							 DELETE/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf
+	                         CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf = 1024x768
+	                         set/ SCR_RES = 1024x768
+	                    end/ if
+
+   ccp/ /set.level = 3
+   SET/ SCR_SAVE = OS\ELIEOS\SYSIV\USERXT\%ACTIVE_USER%\MYSPACE\PICS
+   ccp/ /set.level = 4
+   
+   gui/ 
+   sys/ /fileformat-gui-load
+ //  CMD/ /PID:%PID_LOGIN% exe/ & OS/ELIEOS/SYSIV/USERXT/LOCK/LOCKSCR.CPC
+ //  close/ /PID:%PID_AUTOEXEC%
+ELSE:
+   IF/ "%LOCK_STATE%" == "1" then:
+   // Continue executing normaly but we put the USERNAME in Level 4
+   ccp/ /set.level = 4
+   SYS/ /OS:ELIEOS
+   @#ACTIVE_USER OPEN/ %HOST_OS%/SYSIV/USERXT/LIST.LST
+   @#BACKGROUND OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/BACK.ECF
+   set/ SCR_IMG = %BACKGROUND%
+   @#RESOLUTION OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf
+   @#SYS_SCREEN sys/ /liste /ecran 32
+   SET/ Resol_Check = /f:CPC.INSTR(%SYS_SCREEN%, %RESOLUTION%)
+                        if/ "%Resol_Check%" > "0" then:
+	                         set/ SCR_RES = %RESOLUTION%
+                        ELSE:
+						     txt/ Anta baka !? Nande!?
+	                         DELETE/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf
+	                         CMD/ /THREAD write/ /BIN OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/res.ecf = 1024x768
+	                         set/ SCR_RES = 1024x768
+	                    end/ if
+        GUI/
+    @#ACTIVE_DESK OPEN/ OS/ELIEOS/SYSIV/USERXT/%ACTIVE_USER%/CONFIG/DESKTOP.ecf
+    EXE/ & %ACTIVE_DESK%/XT.CPC
+
+   end/ if
+end/ if
+
+
+
+
+
+
+
+
+
+
+

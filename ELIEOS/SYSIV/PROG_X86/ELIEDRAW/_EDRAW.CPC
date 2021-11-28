@@ -1,0 +1,413 @@
+
+ccp/ /set.level = 2
+ccp/ /optimzation = 1
+
+
+window/ my_drawing_window
+	.title				= "ElieDraw CpcdosC+"
+	.px					= "200"
+	.py					= "100"
+	.sx					= "600"
+	.sy					= "490"
+	.opacity			= "255"
+	.parameters			= "TYPE:0 BLURRY:6 CTX:2"
+	.backcolor		    = "255,255,255"
+	.event				= "%_exe_path_%=Click"
+	.icon               = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/nko.png"
+	@#draw create/
+end/ window
+
+ccp/ /set.level = 3
+
+set/ my_drawing_window.ctx_text(0) = About ElieDraw
+set/ my_drawing_window.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/ElieIM/about.CPC
+
+set/ my_drawing_window.ctx_text(1) = Exit
+set/ my_drawing_window.ctx_action(1) = close/ my_drawing_window
+
+set/ my_drawing_window.ctx_number = 2
+
+ccp/ /set.level = 2
+
+write/ /bin OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/HANDLE.CFG = %draw%
+
+set/ MyHandle = %draw%
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 1
+set/ pen_img = OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN%CODE_COLOR%.png
+// SET/ DATA_HANDLE = %draw%
+set/ PIC_NUM = 0
+write/ /bin OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/NUM.CFG = %PIC_NUM%
+
+
+CCP/ /SET.LEVEL = 2
+
+function/ my_drawing_window.Click()
+
+ccp/ /set.level = 1
+
+    window/ /modif:my_drawing_window
+         @#POS_WIN_X .PX
+         @#POS_WIN_Y .PY
+    end/ window
+
+    SET/ PIXEL_SX = 1
+    SET/ PIXEL_SY = 1
+
+    // POS FENETRE - POS SOURIS = POS PIXEL
+
+   // SYS/ /DEBUG = 2
+   
+ 
+    @#CURSOR_X LOC/ X
+    @#CURSOR_Y LOC/ Y
+    SET/ PIX_POSX = /C(%CURSOR_X% - %POS_WIN_X%)
+    SET/ PIX_POSY = /C(%CURSOR_Y% - %POS_WIN_Y%)
+
+     @#DATA_HANDLE OPEN/ OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/HANDLE.CFG
+    // @#PIC_NUM OPEN/ OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/NUM.CFG
+    SET/ PIC_NUM = /C(%PIC_NUM% + 1)
+    picturebox/ My_Pixel_to_draw_%PIC_NUM%
+    	.Handle			= "%DATA_HANDLE%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "%PIX_POSX%"
+	    .PY				= "%PIX_POSY%"
+	    .sx				= "5"
+	    .sy				= "5"
+	    .Image			= "%pen_img%"
+	    create/
+    end/ picturebox
+	ccp/ /set.level = 4
+	set/ PIC_NUM = %PIC_NUM%
+    // write/ /bin OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/NUM.CFG = %PIC_NUM%
+
+    // refresh/ my_drawing_window
+
+end/ function
+
+function/ my_drawing_window.WindowClosing()
+   close/ my_tool_window
+   close/ my_colors_window
+
+end/ function
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+window/ my_tool_window
+	.title				= ""
+	.px					= "140"
+	.py					= "100"
+	.sx					= "39"
+	.sy					= "400"
+	.opacity			= "255"
+	.parameters			= "TYPE:4 CTN:1 TASKBARHIDE:1 REDUCT:0 SIZ:0 CLOSE:0"
+	.backcolor		    = "255,255,255"
+	.event				= "%_exe_path_%=Click"
+	@#tool create/
+end/ window
+
+    picturebox/ Pen
+    	.Handle			= "%tool%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "2"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/TOOLS/PEN.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+   
+function/ Pen.Click()
+
+   ccp/ /set.level = 4
+   
+   set/ pen_img = OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN%CODE_COLOR%.png
+
+   ccp/ /set.level = 2
+
+end/ function
+
+
+    picturebox/ eraser
+    	.Handle			= "%tool%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "2"
+	    .PY				= "37"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/TOOLS/eraser.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+   
+function/ eraser.Click()
+
+   ccp/ /set.level = 4
+
+   set/ pen_img = OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/eraser.png
+
+   ccp/ /set.level = 2
+
+end/ function
+
+
+
+
+    picturebox/ brush
+    	.Handle			= "%tool%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "2"
+	    .PY				= "72"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/TOOLS/brush.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+   
+function/ brush.Click()
+
+   ccp/ /set.level = 4
+
+   set/ pen_img = OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/BRUSH%CODE_COLOR%.png
+
+   ccp/ /set.level = 2
+
+end/ function
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+window/ my_colors_window
+	.title				= ""
+	.px					= "200"
+	.py					= "640"
+	.sx					= "600"
+	.sy					= "90"
+	.opacity			= "255"
+	.parameters			= "TYPE:4 CTN:1 TASKBARHIDE:1 REDUCT:0 SIZ:0 CLOSE:0"
+	.backcolor		    = "%ELIE.WINDOW.COLOR%"
+	.event				= "%_exe_path_%=Click"
+	@#colors_panel create/
+end/ window
+
+
+    picturebox/ one
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "2"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN1.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+
+function/ one.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 1
+CCP/ /SET.LEVEL = 2
+
+end/ function
+   
+
+    picturebox/ two
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "37"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN2.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+
+function/ two.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 2
+CCP/ /SET.LEVEL = 2
+
+end/ function
+   
+    picturebox/ three
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "72"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN3.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+   
+function/ three.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 3
+CCP/ /SET.LEVEL = 2
+
+end/ function
+
+   
+    picturebox/ four
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "107"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN4.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+   
+function/ four.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 4
+CCP/ /SET.LEVEL = 2
+
+end/ function
+
+sys/ /debug = 2
+   
+    picturebox/ five
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "142"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN5.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+   
+function/ five.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 5
+CCP/ /SET.LEVEL = 2
+
+end/ function
+
+   
+    picturebox/ six
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "177"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN6.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+
+function/ six.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 6
+CCP/ /SET.LEVEL = 2
+
+end/ function
+
+
+   
+   
+   
+    picturebox/ eight
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "212"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN8.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+
+function/ eight.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 8
+CCP/ /SET.LEVEL = 2
+
+end/ function
+	 
+  //  picturebox/ ninebleh
+  //  	.Handle			= "%colors_panel%"
+  //  	.Parameters		= "IMGAUTO:2"
+  //    .PX				= "282"
+  //    .PY				= "2"
+  //    .sx				= "33"
+  //    .sy				= "33"
+  //    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN9.png"
+  //    .event          = "%_exe_path_%=Click"
+  //    create/
+  // end/ picturebox
+   
+function/ ninebleh.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 9
+CCP/ /SET.LEVEL = 2
+
+end/ function
+
+
+   
+    picturebox/ ten
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "247"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN10.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+
+
+function/ ten.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 10
+CCP/ /SET.LEVEL = 2
+
+end/ function
+	 
+    picturebox/ seven
+    	.Handle			= "%colors_panel%"
+    	.Parameters		= "IMGAUTO:2"
+	    .PX				= "212"
+	    .PY				= "2"
+	    .sx				= "33"
+	    .sy				= "33"
+	    .Image			= "OS/ELIEOS/SYSIV/PROG_X86/ELIEDRAW/GRAPHS/PEN6.png"
+        .event          = "%_exe_path_%=Click"
+	    create/
+     end/ picturebox
+
+function/ seven.Click()
+
+CCP/ /SET.LEVEL = 4
+set/ CODE_COLOR = 7
+CCP/ /SET.LEVEL = 2
+
+end/ function
+
+
+refresh/ ninebleh
+refresh/ seven
+refresh/ my_colors_window
+
+
+   

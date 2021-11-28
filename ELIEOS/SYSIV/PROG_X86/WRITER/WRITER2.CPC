@@ -1,0 +1,247 @@
+
+
+ ccp/ /set.level = 2  
+
+ CCP/ /OPTIMIZATION = 1
+
+
+set/ source = %_ARG_1%
+@#Content OPEN/ %source%
+
+
+
+window/ elie_pad
+	.title 			= "ElieWriter : %source%"
+	.px				= "100"
+	.py 			= "50"
+	.sx 			= "800"
+	.sy             = "550"
+	.parameters 	= "TYPE:0 BLURRY:6 CTX:2"
+	.Opacity        = "200"
+	.WindowColor	= "050,050,100"
+	.BackColor  	= "%ELIE.WINDOW.COLOR%"
+	.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/elienote.png"
+    .events         = "%_EXE_PATH_%"
+	@#elie_note create/
+end/ window
+
+ccp/ /set.level = 3
+
+set/ elie_pad.ctx_text(0) = About ElieWriter
+set/ elie_pad.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/writer/about.CPC
+
+set/ elie_pad.ctx_text(1) = Exit
+set/ elie_pad.ctx_action(1) = close/ elie_pad
+
+set/ elie_pad.ctx_number = 2
+
+ccp/ /set.level = 2
+
+
+
+
+Textbox/ zone_texte
+	.handle			= "%elie_note%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+	.PX				= "0"
+	.PY				= "52"
+	.SX				= "800"
+	.SY				= "478"
+	.BackColor	    = "255,255,255"
+	.TextColor   	= "000,000,000"
+    .text           = "%Content%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+picturebox/ btn_fichier
+	.Handle			= "%elie_note%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "0"
+	.sx				= "45"
+	.sy				= "21"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/save.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,MouseLeave"
+	create/
+end/ picturebox
+
+
+picturebox/ btn_new
+	.Handle			= "%elie_note%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "53"
+	.PY				= "0"
+	.sx				= "45"
+	.sy				= "21"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/new.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,MouseLeave"
+	create/
+end/ picturebox
+
+picturebox/ btn_open
+	.Handle			= "%elie_note%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "104"
+	.PY				= "0"
+	.sx				= "45"
+	.sy				= "21"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/open.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,MouseLeave"
+	create/
+end/ picturebox
+
+set/ filename = \#NULL
+
+Textbox/ file_data
+	.handle			= "%elie_note%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:0 BORD:0"
+    .PX             = "200"
+    .PY             = "5"
+	.SX				= "550"
+	.SY				= "15"
+	.BackColor	= "188,188,188"
+	.TextColor	= "000,000,000"
+    .text          = "%source%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+function/ btn_fichier.MouseEnter()
+
+     		Picturebox/ /modif:btn_fichier
+			   .Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/save1.png"
+			   create/
+		    end/ Picturebox 
+end/ function
+
+function/ btn_fichier.MouseLeave()
+
+     		Picturebox/ /modif:btn_fichier
+			   .Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/save.png"
+			   create/
+		    end/ Picturebox 
+
+
+end/ function
+
+function/ btn_fichier.Click()
+                 
+         textbox/ /modif:file_data
+			 @#filename .text
+		 end/ textbox
+
+         textbox/ /modif:zone_texte
+			 @#Content .text
+		 end/ textbox
+
+ CMD/ /THREAD write/ %filename% = %Content%
+
+         window/ /modif:elie_pad
+		      .title = "ElieWriter : %filename%"
+			  create/
+		 end/ window
+    refresh/ elie_pad
+  /F:ELIE.MSGBOX(ElieOS,Saving file completed!,1)
+	
+end/ function
+
+function/ btn_new.MouseEnter()
+
+            Picturebox/ /modif:btn_new
+			   .Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/new1.png"
+			   create/
+		    end/ Picturebox 
+end/ function
+
+function/ btn_new.MouseLeave()
+
+
+     		Picturebox/ /modif:btn_new
+			   .Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/new.png"
+			   create/
+		    end/ Picturebox 
+
+
+end/ function
+
+
+FUNCTION/ btn_new.Click()
+
+		 textbox/ /modif:zone_texte
+			 @#Content .text
+			 .text = ""
+			 create/
+		 end/ textbox
+
+end/ Function
+
+function/ btn_open.MouseEnter()
+
+     		Picturebox/ /modif:btn_open
+			   .Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/open1.png"
+			   create/
+		    end/ Picturebox 
+
+end/ function
+
+function/ btn_open.MouseLeave()
+
+     		Picturebox/ /modif:btn_open
+			   .Image			= "OS/ELIEOS/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/open.png"
+			   create/
+		    end/ Picturebox 
+
+end/ function
+
+function/ btn_open.Click()
+
+                
+         textbox/ /modif:file_data
+			 @#filename .text
+		 end/ textbox
+
+  @#Content open/ %filename%
+ 
+          textbox/ /modif:zone_texte
+             .text "%Content%"
+			 create/
+         end/ textbox
+
+		 window/ /modif:elie_pad
+		      .title = "ElieWriter v0.7.9 : %filename%"
+			  create/
+		 end/ window
+        refresh/ elie_pad
+  
+end/ function
+
+Function/ elie_pad.Resize(up)
+        ccp/ /set.level = 2  
+		// Blabla 
+
+        window/ /modif:elie_pad
+                @#Size_X .sx
+                @#Size_Y .sy
+        end/ window
+
+        set/ Size_Y = /C(%Size_Y% - 52)
+
+        
+        textbox/ /modif:zone_texte
+                .sx = "%Size_X%"
+                .sy = "%Size_Y%"
+                create/
+        end/ textbox
+		
+
+End/ function
+
+
+
+
+
+
+
+
+

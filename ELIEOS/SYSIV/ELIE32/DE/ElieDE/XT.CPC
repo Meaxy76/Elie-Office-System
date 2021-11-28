@@ -1,0 +1,19 @@
+
+// Loading config for ElieDE
+
+
+exe/ & OS/ELIEOS/SYSIV/ELIE32/DE/ElieDE/DE.CPC
+
+
+// exe/ & OS/ELIEOS/SYSIV/PROG_X86/WRITER/WRITER.CPC
+
+
+sys/ /os:elieos
+
+sys/ /font /load_cfg
+sys/ /font /load_map
+
+sys/ /font /enable /all:bahns
+// exe/ & OS/ELIEOS/SYSIV/PROG_X86/ELIECALC/CALCU.CPC
+refresh/ /all
+

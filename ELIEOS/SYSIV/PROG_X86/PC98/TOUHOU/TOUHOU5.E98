@@ -1,0 +1,18 @@
+
+[dosbox]
+
+machine=pc98
+
+
+[dos]
+
+umb=false
+
+
+[autoexec]
+
+config -set cpu cycles=50000
+mount c C:\CPCDOS\OS\ELIEOS\SYSIV\PROG_X86\PC98\TOUHOU
+c:
+cd TH05
+ldr.bat

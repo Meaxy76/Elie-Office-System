@@ -1,0 +1,17 @@
+
+
+
+ccp/ /set.level = 3
+
+
+
+     SET/ CPC_GUI.TASKBAR.NORMAL = %HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/TASK/task.png
+
+     // [FR] Image item focus
+     // [EN] Focus item image
+     SET/ CPC_GUI.TASKBAR.FOCUS = %HOST_OS%/SYSIV/ELIE32/ICONPACK/OS_ICON/TASK/taskl.png
+
+
+
+
+     

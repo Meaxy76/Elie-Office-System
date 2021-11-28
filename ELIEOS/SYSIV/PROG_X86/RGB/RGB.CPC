@@ -1,0 +1,122 @@
+
+set/ startcolor = 255,255,255
+
+window/ RGB_ELIE
+                .title                 = "RGB color"
+		.px				= "2"
+		.py				= "21"
+		.SX				= "194"
+		.SY				= "95"
+		rem/.Opacite 		= "100"
+		.parameters		= "TYPE:0 SIZBTN:0 BLURRY:6 CTX:2"
+		.backcolor	= "%startcolor%"
+		.icon           = "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/rgb.png"
+		@#rgb_run create/
+end/ window
+
+ccp/ /set.level = 3
+
+set/ RGB_ELIE.ctx_text(0) = About RGB color
+set/ RGB_ELIE.ctx_action(0) = exe/ & %HOST_OS%/SYSIV/PROG_X86/rgb/about.CPC
+
+set/ RGB_ELIE.ctx_text(1) = Exit
+set/ RGB_ELIE.ctx_action(1) = close/ RGB_ELIE
+
+set/ RGB_ELIE.ctx_number = 2
+
+ccp/ /set.level = 2
+
+picturebox/ version_menu
+	.Handle			= "%rgb_run%"
+	.parameters		= "IMGAUTO:2"
+	.PX			= "0"
+	.PY			= "78"
+	.SX			= "150"
+	.SY		        = "17"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	rem/ .opacite		= "150"
+	rem/.event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+
+textblock/ date
+	.Handle = "%rgb_run%"
+	.parameters = "COL:0, BORD:0"
+	.text = "Enter value:"
+	.PX = "3"
+	.PY = "80"
+	.textcolor = "168,168,168"
+	create/
+end/ textblock
+
+set/ colorcode = \#NULL
+
+textbox/ rgb_data
+	.handle			= "%rgb_run%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "0"
+        .PY                             = "59"
+	.SX				= "150"
+	.SY				= "17"
+	.backcolor	= "255,255,255"
+	.textcolor	= "000,000,000"
+    .text          = "%colorcode%"
+	.event			= "%_exe_path_%=KeyPress"
+    create/
+end/ textbox
+
+set/ changer = \#NULL
+
+textbox/ colorchanger
+	.handle			= "%rgb_run%"
+	.parameters 	= "EDIT:0 COL:1 MULTILINES:1"
+        .PX                             = "0"
+        .PY                             = "0"
+	.SX				= "194"
+	.SY				= "56"
+	.backcolor	= "188,188,188"
+	.textcolor	= "000,000,000"
+    .text          = "%changer%"
+	.event			= "%_exe_path_%=KeyPress"
+    create/
+end/ textbox
+
+
+button/ rgb_change
+	.Handle			= "%rgb_run%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "152"
+	.PY				= "58"
+	.SX				= "40"
+	.SY				= "36"
+	rem/ .opacite		= "100"
+	.text			= "Go"
+	.TextColor      = "168,168,168"
+	.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/BUTTON/BTN_GRAY.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ rgb_change.Click()
+
+          textbox/ /modif:rgb_data
+			 @#Contenu .text
+		 end/ textbox
+		 
+		 textbox/ /modif:colorchanger
+			 .backcolor	= "%Contenu%"
+			 create/
+		 end/ textbox
+
+		 refresh/ RGB_ELIE
+		 
+
+end/ function
+
+
+
+
+
+
